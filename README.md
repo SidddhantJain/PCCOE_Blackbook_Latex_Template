@@ -41,10 +41,11 @@ pdflatex main.tex
 Update metadata in main.tex:
 
 - Project title
-- Student names and PRN numbers
-- Guide name
-- College name and address
-- Academic year
+- Student names and PRN numbers (all 4 students)
+- Faculty guide names (both guides)
+- HOD name (Optional - defaults to Dr. Jayashree Kati)
+- Academic year (preset to 2025-26)
+- College name, address (already set to PCCOE)
 
 ## 5) Logo
 

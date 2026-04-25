@@ -25,7 +25,7 @@ The following information is already configured in the template:
 
 ## Information To Customize
 
-Edit `main.tex` (lines 19-28) with your project details:
+Edit `main.tex` (lines 19-34) with your project details:
 
 ### 1. Project Information
 ```latex
@@ -33,31 +33,37 @@ Edit `main.tex` (lines 19-28) with your project details:
 ```
 Replace with your actual project title (e.g., "IoT-Based Smart Agriculture System")
 
-### 2. Student 1 Details
+### 2. Student Information (All 4 students)
 ```latex
 \newcommand{\StudentOne}{NAME OF STUDENT 1}
 \newcommand{\PRNOne}{PRN NO: 1}
-```
-Replace with student 1's full name and PRN (e.g., "Siddhant Mishrikotkar", "21110290")
-
-### 3. Student 2 Details
-```latex
 \newcommand{\StudentTwo}{NAME OF STUDENT 2}
 \newcommand{\PRNTwo}{PRN NO: 2}
+\newcommand{\StudentThree}{NAME OF STUDENT 3}
+\newcommand{\PRNThree}{PRN NO: 3}
+\newcommand{\StudentFour}{NAME OF STUDENT 4}
+\newcommand{\PRNFour}{PRN NO: 4}
 ```
-Replace with student 2's full name and PRN
+Replace each with the student's full name and PRN.
 
-### 4. Guide Information
+### 3. Faculty Guides (Both guides)
 ```latex
-\newcommand{\GuideName}{GUIDE NAME}
+\newcommand{\GuideOne}{FACULTY GUIDE 1}
+\newcommand{\GuideTwo}{FACULTY GUIDE 2}
 ```
-Replace with your faculty guide/mentor name (e.g., "Dr. Suresh Kumar")
+Replace with your two faculty guides' names.
+
+### 4. Head of Department
+```latex
+\newcommand{\HODName}{Dr. Jayashree Kati}
+```
+Already filled with HOD name. Update only if different.
 
 ### 5. Academic Year
 ```latex
-\newcommand{\AcademicYear}{ACADEMIC YEAR 20XX-XX}
+\newcommand{\AcademicYear}{2025-26}
 ```
-Replace with current academic year (e.g., "2023-24" or "2024-25")
+Already set to 2025-26.
 
 ---
 
