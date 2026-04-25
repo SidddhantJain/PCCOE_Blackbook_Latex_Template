@@ -1,19 +1,37 @@
 \chapter{Requirements}
 
 \section{Functional Requirements}
-List all specific functions your system must perform.
+The system shall:
+\begin{itemize}
+\item Capture voter identifiers (Aadhaar and Voter ID) and validate input format.
+\item Execute biometric capture flow (camera-based face detection, optional analytics overlays).
+\item Provide ballot interface for candidate selection and confirmation.
+\item Persist cast vote in encrypted append-only storage.
+\item Maintain a cast registry to prevent duplicate voting in active context.
+\item Generate auditable event logs with tamper-evident chaining.
+\item Support counting/tally workflow from encrypted ballot ledger.
+\item Provide script-based simulation, verification, and replay for testing.
+\end{itemize}
 
 \section{Nonfunctional Requirements}
-Specify performance, reliability, scalability, security, and usability requirements.
+\begin{itemize}
+\item \textbf{Security:} encrypted local ballot ledger (Fernet), separate audit chain, and no plain-text PII in ballots.
+\item \textbf{Reliability:} graceful fallback when hardware/ML components are unavailable.
+\item \textbf{Usability:} clear step-wise UI transitions with readable dialogs and confirmation states.
+\item \textbf{Accessibility:} high-contrast, reduced cognitive-load screens and explicit error recovery.
+\item \textbf{Maintainability:} clean architecture with isolated core logic and adapter layers.
+\item \textbf{Performance:} interactive response suitable for polling-station workflows in prototype setup.
+\item \textbf{Auditability:} deterministic sequence and hash-chain verification for ballots and events.
+\end{itemize}
 
 \section{Tools and Technologies Used}
 \begin{itemize}
-\item Programming Language(s): <<Add>>
-\item Framework(s): <<Add>>
-\item Database: <<Add>>
-\item IDE/Editor: <<Add>>
-\item Version Control: <<Add>>
-\item Testing Tools: <<Add>>
+\item Programming Language(s): Python, C++, Rust (prototype stub)
+\item Framework(s): PyQt5, OpenCV, optional ONNXRuntime/TensorFlow
+\item Database/Storage: Encrypted JSON ledger with hash chaining (no RDBMS required in prototype)
+\item IDE/Editor: Visual Studio Code, Python toolchain
+\item Version Control: Git and GitHub
+\item Testing Tools: pytest, simulation scripts, ledger verification scripts
 \end{itemize}
 
 \begin{table}[htbp]
@@ -23,10 +41,10 @@ Specify performance, reliability, scalability, security, and usability requireme
 \toprule
 Component & Selected Technology \\
 \midrule
-Frontend & <<Add>> \\
-Backend & <<Add>> \\
-Database & <<Add>> \\
-Deployment & <<Add>> \\
+Frontend & PyQt5-based desktop touchscreen UI \\
+Backend & Python clean-architecture core with adapter modules \\
+Database & Fernet-encrypted append-only JSON ledgers + cast registry \\
+Deployment & Windows prototype runtime with optional IoT/hardware stubs \\
 \bottomrule
 \end{tabular}
 \end{table}

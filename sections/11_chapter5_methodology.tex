@@ -1,31 +1,55 @@
 \chapter{Methodology}
 
 \section{Introduction}
-Provide a brief explanation of the proposed methodology and justify why it was chosen for this project. Discuss the advantages and disadvantages compared to alternative approaches.
+VoteGuard Pro follows a security-first and accessibility-constrained methodology. The method combines modular software engineering, threat-informed design, and prototype validation.
+
+The selected approach was chosen because it allows independent verification of critical layers (UI, storage, audit, and optional chain anchoring) while supporting rapid iteration in academic constraints.
 
 \section{System Architecture}
-Present an overview of the system architecture with a comprehensive diagram. Explain the different modules, their responsibilities, and how they interact with each other. Include descriptions of:
+The architecture follows clean-separation principles:
 \begin{itemize}
-\item Frontend layer architecture
-\item Backend layer architecture
-\item Database layer design
-\item Integration points with third-party services or APIs
+\item \textbf{Core Layer:} domain models, ports, use cases, and state machine.
+\item \textbf{Adapter Layer:} encrypted storage adapter, audit log adapter, chain simulation, and device adapters.
+\item \textbf{UI Layer:} Aadhaar entry, biometric capture, and voting screen workflow.
+\item \textbf{Optional ML Layer:} overlays and anomaly hints for operator observability only.
 \end{itemize}
 
+Data flow:
+\begin{enumerate}
+\item Capture voter identifiers and initialize voting session.
+\item Perform biometric capture/face detection and continue guided flow.
+\item Accept candidate selection and confirmation.
+\item Encrypt ballot payload and append to hash-chained ledger.
+\item Record audit event and optionally prepare chain-anchoring metadata.
+\end{enumerate}
+
 \section{Algorithm}
-Describe key algorithms used in the project. For each algorithm:
+Key algorithms and controls used:
 \begin{itemize}
-\item Explain the algorithm logic step-by-step
-\item Provide pseudocode if applicable
-\item Discuss time and space complexity
-\item Justify why this algorithm was chosen over alternatives
+\item \textbf{Encrypted Append Algorithm:} encrypt vote payload via Fernet, append as next sequence element, and update chain hash.
+\item \textbf{Cast-Registry Guard:} create salted identifier hash and reject duplicate cast attempts.
+\item \textbf{Ledger Verification Algorithm:} traverse records, validate sequence continuity and previous-hash integrity.
+\item \textbf{UI State Progression:} deterministic screen transitions to prevent overlapping dialogs and race conditions.
 \end{itemize}
+
+Representative pseudocode:
+\begin{verbatim}
+Input: voter_id, candidate
+if cast_registry.contains(hash_salt(voter_id)):
+	reject_vote("duplicate attempt")
+else:
+	payload = encrypt({candidate, timestamp, station_id})
+	record = append_hash_chain(payload)
+	audit_log.append("vote_cast", record.hash)
+	cast_registry.add(hash_salt(voter_id))
+	confirm_success()
+\end{verbatim}
 
 \begin{figure}[htbp]
 \centering
 \fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering System Architecture Diagram}}
 \caption{High-Level System Architecture}
-\figurelegend{Replace with actual system architecture diagram showing all major components and data flows.}
+\figurelegend{Use the repository architecture diagram to show UI, core use-cases, encrypted ballot ledger, audit chain, and optional blockchain anchor path.}
 \end{figure}
 
 \clearpage

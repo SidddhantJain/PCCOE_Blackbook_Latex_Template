@@ -1,29 +1,47 @@
 \chapter{Introduction}
 
 \section{Background}
-Provide the domain context, current practices, and the problem area addressed by the project.
+Elections are a critical democratic process, but traditional and many electronic voting systems still face challenges in security, auditability, and accessibility. Existing systems often focus on vote collection and counting while giving limited attention to transparent audit trails, tamper awareness, inclusive voter journeys, and deployment in constrained environments.
+
+The project \textbf{VoteGuard Pro} addresses this by combining a guided electronic voting workflow with encrypted vote persistence, a verifiable hash-chained audit path, optional biometric analytics, and a blockchain-ready anchoring pathway. The system is designed as a prototype for research and engineering evaluation in academic and controlled environments.
 
 \section{Motivation}
-Explain the need for the project and the key pain points solved.
+The key motivation is to design a system that treats security and accessibility as equal constraints rather than trade-offs. The project is driven by the following practical concerns:
+\begin{itemize}
+\item Risk of vote tampering and weak post-election verification in opaque systems.
+\item Voter trust deficit due to limited transparency of vote handling.
+\item Limited support for accessible and guided digital voting experiences.
+\item Need for modular, testable architecture that can evolve toward blockchain-backed immutability.
+\end{itemize}
 
 \section{Aims and Objectives}
 \begin{enumerate}
-\item Define the project scope and expected outcomes.
-\item Identify measurable goals and target users.
-\item State constraints, assumptions, and success criteria.
+\item Build a secure prototype that stores ballots in encrypted append-only form and maintains an audit chain.
+\item Implement a guided voter journey: identifier entry, biometric capture, ballot selection, confirmation, and persistence.
+\item Prevent duplicate casting within the session using cast-registry safeguards.
+\item Maintain modular boundaries between UI, storage, security, devices, and optional blockchain adapters.
+\item Evaluate the prototype for functionality, usability, accessibility, and operational robustness.
 \end{enumerate}
 
 \section{Sustainable Development Goals (SDG) Addressed}
-Mention the SDGs addressed by the project and justify the mapping with expected impact.
+The project aligns with the following SDGs:
+\begin{itemize}
+\item \textbf{SDG 9 (Industry, Innovation and Infrastructure):} by proposing resilient digital civic infrastructure for elections.
+\item \textbf{SDG 10 (Reduced Inequalities):} by improving accessibility and guided flows for diverse voter groups.
+\item \textbf{SDG 16 (Peace, Justice and Strong Institutions):} by improving transparency, auditability, and trust in electoral mechanisms.
+\item \textbf{SDG 17 (Partnerships for the Goals):} by enabling integration of government, academic, and technical stakeholders.
+\end{itemize}
 
 \section{Organization of Project Report}
-Briefly summarize the contents of each chapter.
+Chapter 1 introduces the problem context, motivation, objectives, and SDG mapping. Chapter 2 reviews literature on biometric voting, blockchain voting, and secure e-voting architectures. Chapter 3 defines functional and nonfunctional requirements, with tools and technologies used. Chapter 4 describes project planning, timeline, and cost estimates. Chapter 5 explains methodology and architecture rationale.
+
+Chapter 6 presents system design artifacts including use case, activity, sequence, ER, component, and deployment views. Chapter 7 documents implementation details of modules and data flows. Chapter 8 presents testing strategy and outcomes. Chapter 9 discusses observed results and comparative analysis. Chapter 10 concludes the work and proposes future improvements. References and appendices follow.
 
 \begin{figure}[htbp]
 \centering
 \fbox{\parbox[c][4cm][c]{0.75\textwidth}{\centering Sample Figure Placeholder}}
-\caption{System Overview}
-\figurelegend{Legend: Replace with concise explanatory note in 10 pt text.}
+\caption{VoteGuard Pro Conceptual Workflow}
+\figurelegend{Suggested diagram content: Aadhaar/Voter ID intake, biometric capture, ballot casting, encrypted ledger write, and optional blockchain anchor.}
 \end{figure}
 
 \clearpage

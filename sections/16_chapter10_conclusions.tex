@@ -1,69 +1,71 @@
 \chapter{Conclusions and Future Work}
 
 \section{Project Summary}
-Provide a concise summary of the entire project:
+VoteGuard Pro delivers a security-first, accessibility-aware electronic voting prototype that combines guided UI workflows, encrypted append-only ballot persistence, hash-chained audit logs, and blockchain-ready extension points. The solution addresses core electoral concerns of integrity, transparency, and operational usability in constrained environments.
+
+Major achievements include:
 \begin{itemize}
-\item Restate the problem statement and objectives
-\item Briefly describe the proposed solution
-\item Highlight key contributions and achievements
-\item Discuss overall project success
+\item End-to-end cast workflow implementation with deterministic transitions.
+\item Cryptographic ballot storage and audit-chain integrity checks.
+\item Duplicate vote prevention via cast-registry controls.
+\item Testable modular architecture suitable for iterative hardening.
 \end{itemize}
 
 \section{Key Findings}
-Summarize the most important discoveries and results:
+Key findings from implementation and validation:
 \begin{itemize}
-\item Technical findings
-\item Performance achievements
-\item Compliance with functional and non-functional requirements
-\item Alignment with project goals
+\item Security and accessibility can be co-designed without sacrificing usability.
+\item Ledger verification significantly improves post-cast transparency.
+\item Adapter-based architecture accelerates testing and controlled substitution of components.
+\item Simulation-first approach is effective for academic prototyping and demonstration.
 \end{itemize}
 
 \section{Challenges Faced and Solutions}
-Document challenges encountered during development and how they were addressed:
+Challenges and resolutions:
 \begin{itemize}
-\item Technical challenges
-\item Resource constraints
-\item Integration issues
-\item Solutions implemented
-\item Lessons learned
+\item \textbf{Hardware variability:} resolved with mock adapters and simulation mode.
+\item \textbf{State transition complexity:} handled via deterministic state-machine design.
+\item \textbf{Auditability requirements:} implemented through parallel ballot and audit hash chains.
+\item \textbf{Scope constraints:} blockchain and FFI paths retained as progressive placeholders.
 \end{itemize}
 
 \section{Meeting Project Objectives}
 Verify that all objectives stated in Chapter 1 have been met:
 \begin{itemize}
-\item Objective 1: [Status - Met/Partially Met/Not Met]
-\item Objective 2: [Status - Met/Partially Met/Not Met]
-\item Objective 3: [Status - Met/Partially Met/Not Met]
+\item Objective 1 (secure cast and storage): \textbf{Met}
+\item Objective 2 (guided accessibility-aware flow): \textbf{Met}
+\item Objective 3 (auditability and integrity verification): \textbf{Met}
+\item Objective 4 (modular blockchain-ready path): \textbf{Partially Met} (prototype adapters complete; production anchoring pending)
 \end{itemize}
 
 \section{Alignment with Sustainable Development Goals (SDGs)}
-Discuss how the project contributes to the SDGs identified in the Introduction:
+Contribution against selected SDGs:
 \begin{itemize}
-\item SDG identification and relevance
-\item Contribution to global sustainable development
-\item Social and environmental impact
+\item \textbf{SDG 9:} innovation in secure civic digital infrastructure.
+\item \textbf{SDG 10:} inclusive and guided voting interactions for diverse user groups.
+\item \textbf{SDG 16:} improved transparency and trust in institutional processes.
 \end{itemize}
 
 \section{Future Enhancements}
-Identify potential improvements and extensions to the project:
+Planned enhancements:
 \begin{itemize}
-\item Additional features that could be implemented
-\item Performance optimization opportunities
-\item Scalability improvements
-\item Integration with other systems
-\item Emerging technologies that could be incorporated
+\item Production-grade key management using HSM/secure vault.
+\item Permissioned blockchain anchoring with verifiable receipts.
+\item Formal verification of critical state transitions and storage invariants.
+\item Expanded accessibility modes (multilingual voice/tactile assistance).
+\item Hardened device attestation and signed-driver trust pipeline.
 \end{itemize}
 
 \section{Recommendations}
-Provide recommendations for:
+Recommendations:
 \begin{itemize}
-\item End users
-\item Developers maintaining the system
-\item Organizations deploying the solution
-\item Future researchers in this domain
+\item Use this prototype for controlled pilot studies, not direct production elections.
+\item Prioritize threat modeling, external audits, and compliance checks before deployment.
+\item Continue comparative evaluation against biometric-only and blockchain-only baselines.
+\item Maintain strict separation between analytics and eligibility decision logic.
 \end{itemize}
 
 \section{Final Remarks}
-Conclude with final thoughts on the project's significance and impact.
+VoteGuard Pro demonstrates that transparent, auditable, and inclusive digital voting workflows can be engineered with practical modularity. The project establishes a robust foundation for future research and production hardening toward trustworthy electoral technology.
 
 \clearpage

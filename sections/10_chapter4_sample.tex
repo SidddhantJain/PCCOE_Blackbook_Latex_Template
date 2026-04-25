@@ -1,29 +1,55 @@
 \chapter{Project Plan}
 
 \section{Project Phases and Timeline}
-Provide a breakdown of all project phases with specific start dates, end dates, and deliverables for each phase. Include a Gantt chart or timeline diagram showing task dependencies and critical path.
+The implementation follows a phased plan aligned with repository artifacts and project calendar.
+
+\begin{itemize}
+\item \textbf{Phase 1 (Research and Planning):} problem definition, stakeholder analysis, literature review, compliance review.
+\item \textbf{Phase 2 (Architecture and Design):} system architecture, trust boundaries, component diagrams, and workflow modeling.
+\item \textbf{Phase 3 (Prototype Development):} UI workflow, encrypted storage, cast registry, scripts, and adapter modules.
+\item \textbf{Phase 4 (Testing and Validation):} unit tests, integration checks, ledger verification, and UI robustness checks.
+\item \textbf{Phase 5 (Documentation and Finalization):} blackbook compilation, references, appendix, and final review.
+\end{itemize}
+
+Indicative timeline for academic execution (Sem-II):
+\begin{itemize}
+\item Jan-Feb 2026: Phases 1 and 2
+\item Feb-Mar 2026: Phase 3
+\item Mar-Apr 2026: Phase 4
+\item Apr 2026: Phase 5
+\end{itemize}
 
 \section{Cost Estimation}
 
 \subsection{Lines of Code}
-Estimated total number of lines of code for the complete project.
+Based on current repository structure (Python modules, scripts, tests, and supporting stubs), the project size is estimated in the \textbf{8-12 KLOC} range for active prototype code.
 
 \subsection{Effort Estimation Using COCOMO Model}
-Apply the COCOMO model with project parameters (KLOC, effort multipliers, development mode).
+For an academic prototype, the \textbf{Organic COCOMO} model is used with $KLOC = 10$:
+
+$$
+Effort = 2.4 \times (10)^{1.05} \approx 26.9 \text{ person-months}
+$$
+
+$$
+Schedule = 2.5 \times (26.9)^{0.38} \approx 8.8 \text{ months}
+$$
+
+For team execution in a guided academic setup, practical elapsed duration is reduced through parallel development and scoped deliverables.
 
 \subsection{Cost Categories}
 
 \subsubsection{Hardware Cost Estimation}
-Include laptops, servers, cloud services, IoT devices, or other hardware required.
+Development laptops, camera modules, biometric peripherals, and optional embedded boards are considered. Prototype uses off-the-shelf components to reduce cost.
 
 \subsubsection{Software Cost Estimation}
-List software licenses, operating systems, IDEs, databases, and third-party libraries with costs.
+Core stack is mostly open-source (Python, PyQt5, OpenCV, pytest, Git). Optional managed services and premium tooling are not mandatory for prototype completion.
 
 \subsubsection{Development Cost Estimation}
-Provide effort estimation in person-months and salary breakdown if applicable.
+Effort is estimated from COCOMO and distributed among team members for analysis, coding, testing, and documentation. Faculty guidance and institutional resources reduce direct project spend.
 
 \subsubsection{Hosting and Deployment Costs}
-Include cloud hosting (AWS, Azure, GCP), domain registration, SSL certificates, and CDN costs.
+The prototype runs primarily offline/on-premise. Optional cloud cost is limited to demo storage and collaboration infrastructure.
 
 \begin{table}[htbp]
 \centering
@@ -32,11 +58,11 @@ Include cloud hosting (AWS, Azure, GCP), domain registration, SSL certificates, 
 \toprule
 Cost Category & Estimated Cost & Remarks \\
 \midrule
-Hardware & & \\
-Software Licenses & & \\
-Development & & \\
-Deployment & & \\
-\textbf{Total} & \textbf{} & \\
+Hardware & INR 70,000 & Shared devices, camera, biometric peripherals \\
+Software Licenses & INR 5,000 & Mostly open-source stack \\
+Development & INR 40,000 & Miscellaneous development and testing overhead \\
+Deployment & INR 10,000 & Optional cloud/demo hosting and network setup \\
+\textbf{Total} & \textbf{INR 1,25,000} & Prototype-level estimate \\
 \bottomrule
 \end{tabular}
 \end{table}

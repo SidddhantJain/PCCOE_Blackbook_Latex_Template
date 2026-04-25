@@ -1,57 +1,45 @@
 \chapter{Implementation}
 
 \section{Module-wise Implementation}
-Provide a detailed breakdown of implementation for each module:
+Implementation is organized into independent modules:
 \begin{itemize}
-\item Module name and its purpose
-\item Key functionalities implemented
-\item Data structures used
-\item External dependencies or libraries
-\item Implementation challenges and solutions
+\item \textbf{UI Module (`voteguard/app.py`, `src/ui/*`):} voter flow screens, validation dialogs, and cast confirmation.
+\item \textbf{Core Module (`voteguard/core/*`):} domain entities, state machine, and use cases (cast, tally, verify).
+\item \textbf{Storage Module (`adapters/storage_fernet_hashchain.py`):} encrypted append-only ballot ledger with hash chaining.
+\item \textbf{Audit Module (`adapters/audit_log_hashchain.py`):} tamper-evident event trace.
+\item \textbf{Device Module (`adapters/devices_mock.py`, `src/hardware/*`):} hardware abstraction and simulation.
+\item \textbf{Blockchain Module (`adapters/chain_simulated.py`, `src/blockchain/*`):} chain-anchoring pathway and prototype integration hooks.
 \end{itemize}
 
 \section{Code Snippets and Explanation}
-Include important code snippets with explanations:
-\begin{itemize}
-\item Key algorithms with comments
-\item Critical functions or methods
-\item Initialization and configuration code
-\item Error handling mechanisms
-\end{itemize}
-
-Example code structure:
+Representative implementation pattern:
 \begin{verbatim}
-# Example: Authentication Module
-def authenticate_user(username, password):
-    """
-    Authenticates user credentials.
-    Args:
-        username: User's login identifier
-        password: User's login password
-    Returns:
-        Boolean indicating authentication success
-    """
-    # Validate input parameters
-    if not username or not password:
-        raise ValueError("Invalid credentials")
-    
-    # Database lookup and password verification
-    user = db.find_user(username)
-    if user and verify_password(password, user.hashed_pwd):
-        return True
-    return False
+def cast_vote(voter_hash, candidate_id):
+    if cast_registry.exists(voter_hash):
+        raise DuplicateVoteError()
+
+    payload = {
+        "candidate_id": candidate_id,
+        "timestamp": now_iso(),
+        "station_id": station_id,
+    }
+    encrypted = fernet.encrypt(json.dumps(payload).encode("utf-8"))
+    record = ballot_ledger.append_with_hashchain(encrypted)
+    audit_ledger.append_event("vote_cast", record.hash)
+    cast_registry.add(voter_hash)
+    return record
 \end{verbatim}
 
 \section{Database Implementation}
 
 \subsection{Schema and Structure}
-Describe the database schema, tables, and their relationships.
+A relational database is not mandatory for the prototype. Persistent state is maintained using structured JSON ledgers and registry files.
 
 \subsection{SQL Table Structures}
-Provide CREATE TABLE statements for all database tables with appropriate data types, constraints, and indexes.
+SQL is not used as primary persistence in this build. Equivalent logical schemas are represented as ledger records and registry entries.
 
 \subsection{ER Diagram Reference}
-Link to ER diagram showing complete database design.
+ER-style mapping is provided in Chapter 6 using BallotRecord, AuditRecord, and CastRegistry entities.
 
 \begin{table}[htbp]
 \centering
@@ -60,9 +48,9 @@ Link to ER diagram showing complete database design.
 \toprule
 Table Name & Primary Key & Key Attributes \\
 \midrule
-users & user\_id & username, email, password\_hash \\
-projects & project\_id & name, description, created\_by \\
-tasks & task\_id & title, status, assigned\_to, deadline \\
+ballot\_ledger & sequence\_id & encrypted\_payload, prev\_hash, record\_hash, timestamp \\
+audit\_ledger & sequence\_id & event\_type, metadata, prev\_hash, record\_hash \\
+cast\_registry & voter\_salted\_hash & cast\_timestamp, station\_id, status \\
 \bottomrule
 \end{tabular}
 \end{table}

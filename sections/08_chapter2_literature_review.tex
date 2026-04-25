@@ -1,29 +1,45 @@
 \chapter{Literature Review}
 
-This chapter should review at least 10 research papers relevant to the project topic.
+This chapter reviews selected work from the project literature set available in the B-17 collection (\textit{LIT BTech}) covering biometric e-voting, blockchain-enabled e-voting, and verifiable polling systems.
 
 \section{Review Method}
-Define search databases, keywords, inclusion criteria, and comparison parameters.
+The review used curated papers from the project folder and supplementary references from system documentation. The filtering criteria were:
+\begin{itemize}
+\item Relevance to electronic voting security, privacy, and verifiability.
+\item Inclusion of biometric identity checks (fingerprint/retina/palmprint/face).
+\item Use of blockchain or append-only ledgers for auditability.
+\item Feasibility for prototype implementation in academic environments.
+\end{itemize}
+
+Comparison parameters included authentication robustness, anti-tampering support, privacy design, computational cost, and deployment practicality.
 
 \section{Paper-Wise Analysis}
 \begin{longtable}{p{0.08\textwidth}p{0.36\textwidth}p{0.24\textwidth}p{0.24\textwidth}}
 \toprule
 No. & Title/Author & Key Contribution & Limitation \\
 \midrule
-1 & Add paper details & Add summary & Add limitation \\
-2 & Add paper details & Add summary & Add limitation \\
-3 & Add paper details & Add summary & Add limitation \\
-4 & Add paper details & Add summary & Add limitation \\
-5 & Add paper details & Add summary & Add limitation \\
-6 & Add paper details & Add summary & Add limitation \\
-7 & Add paper details & Add summary & Add limitation \\
-8 & Add paper details & Add summary & Add limitation \\
-9 & Add paper details & Add summary & Add limitation \\
-10 & Add paper details & Add summary & Add limitation \\
+1 & Biometrically Secured Electronic Voting Machine & Strengthens voter authentication with biometric matching & Limited large-scale field validation \\
+2 & Fingerprint Recognition Based Electronic Voting Machine & Practical fingerprint-based voter verification flow & Vulnerable to spoof attempts without liveness checks \\
+3 & Retina-based E-voting System Using Fuzzy Logic and Hamming Distance & High-accuracy retinal identity approach & Costly hardware and enrollment complexity \\
+4 & Towards a Secure Online E-voting Protocol Based on Palmprint Features & Contactless biometric identity signal & Dataset and fairness limitations \\
+5 & Towards Secure E-voting Using Ethereum Blockchain & Immutable public-verifiable vote records & Throughput, cost, and privacy trade-offs \\
+6 & Trustworthy Electronic Voting Using Adjusted Blockchain Technology & Blockchain modifications for election trust model & Protocol complexity and adoption barriers \\
+7 & Blockchain Technology Application for Electronic Voting Systems & Comprehensive blockchain voting architecture survey & Lacks implementation-level operational details \\
+8 & Conceptual Architecture of a Blockchain Solution for University E-voting & Institution-scale deployment strategy & Scope limited to university election settings \\
+9 & On the Design and Implementation of a Blockchain-Enabled E-voting Application Within IoT-Oriented Smart Cities & Integrates IoT and blockchain design concerns & Requires robust network and governance models \\
+10 & SeVEP: Secure and Verifiable Electronic Polling System & Strong focus on verifiability and security properties & Implementation overhead for constrained devices \\
 \bottomrule
 \end{longtable}
 
 \section{Research Gap}
-Identify the unresolved problem and explain how your project addresses it.
+The literature indicates strong isolated approaches but limited end-to-end prototypes combining accessibility, practical security controls, encrypted local storage, and blockchain-ready auditability in one modular system.
+
+VoteGuard Pro addresses this gap by:
+\begin{itemize}
+\item Combining guided voter flow with security-first storage and audit logging.
+\item Using cast-registry controls for duplicate-prevention in prototype context.
+\item Enabling optional ML overlays for observability without binding vote eligibility decisions to ML output.
+\item Providing a migration path from encrypted local ledgers to immutable chain anchoring.
+\end{itemize}
 
 \clearpage

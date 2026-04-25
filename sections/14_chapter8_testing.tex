@@ -1,50 +1,52 @@
 \chapter{Testing}
 
 \section{Functionality Testing}
-Describe tests performed to verify all functional requirements are met. Include:
+Functionality validation is performed using repository test modules and script-level verification.
 \begin{itemize}
-\item Test objectives
-\item Test coverage areas
-\item Results and observations
+\item UI transitions and workflow progression (`test_ui_transitions.py`).
+\item Vote persistence and storage behavior (`test_vote_storage.py`).
+\item Ledger/counter correctness (`test_counting.py`, `test_ledger.py`).
+\item State-machine determinism (`test_state_machine.py`).
+\item Audit helper behavior and candidate I/O modules.
 \end{itemize}
 
 \section{Performance Testing}
-Discuss performance evaluation including:
+Performance checks in prototype context focus on responsiveness and throughput under simulation:
 \begin{itemize}
-\item Response time measurements
-\item Throughput analysis
-\item Resource utilization (CPU, memory, disk)
-\item Load testing results
-\item Scalability assessment
+\item Capture-to-cast response delay in UI flow.
+\item Ledger append latency for encrypted writes.
+\item Script-driven multiple vote simulation (`simulate_votes.py`).
+\item Tally execution time for ballot files.
 \end{itemize}
 
 \section{Database Integrity Testing}
-Verify database consistency, data validation, and referential integrity:
+Integrity testing is performed through ledger verification rather than SQL ACID checks:
 \begin{itemize}
-\item Test ACID properties
-\item Verify constraint enforcement
-\item Test data recovery procedures
+\item Validate sequence continuity and previous-hash linkage.
+\item Detect tampering, deletion, or record re-ordering.
+\item Verify cast-registry duplicate prevention behavior.
 \end{itemize}
 
 \section{Testing Methodologies Used}
-List all testing types employed:
+Testing methodologies used:
 \begin{itemize}
 \item Unit Testing
 \item Integration Testing
 \item Functional Testing
 \item Performance Testing
 \item System Testing
-\item User Acceptance Testing (UAT)
 \item Security Testing
+\item Regression Testing
 \end{itemize}
 
 \section{Test Environment and Tools}
-Describe the testing environment setup and tools used:
+Environment and tools:
 \begin{itemize}
-\item Hardware specifications
-\item Software versions
-\item Testing tools (e.g., JUnit, Selenium, Postman, LoadRunner, JMeter)
-\item Network configuration
+\item OS: Windows development workstation.
+\item Runtime: Python 3.11+, virtual environment.
+\item Frameworks: PyQt5, cryptography, optional OpenCV/ONNXRuntime.
+\item Testing: pytest and custom verification scripts (`verify_ledger.py`, `tally_votes.py`).
+\item Mode: primarily offline/simulation with optional camera integration.
 \end{itemize}
 
 \section{Manual Test Cases}
@@ -53,9 +55,11 @@ Provide detailed test cases with:
 \toprule
 Test ID & Test Case & Input & Expected Output & Actual Output \\
 \midrule
-TC-1 & User Login & Valid credentials & Login success & Pass \\
-TC-2 & Invalid Login & Invalid credentials & Error message & Pass \\
-TC-3 & Data Validation & Special characters & Rejected & Pass \\
+TC-1 & UI State Transition & Aadhaar+Voter ID and next actions & Correct screen flow & Pass \\
+TC-2 & Duplicate Vote Attempt & Same salted voter hash recast & Rejected with warning & Pass \\
+TC-3 & Ledger Integrity & Modified/untouched ledger files & Tamper detected / valid chain & Pass \\
+TC-4 & Count Accuracy & Simulated ballots file & Correct per-candidate tally & Pass \\
+TC-5 & Missing Camera Path & Camera unavailable at runtime & Fallback behavior without crash & Pass \\
 \bottomrule
 \end{longtable}
 
@@ -69,22 +73,22 @@ Include performance metrics and analysis:
 \toprule
 Metric & Test Condition & Result \\
 \midrule
-Average Response Time & Normal Load & 200-300 ms \\
-Peak Throughput & 100 concurrent users & 150 req/sec \\
-Memory Usage & Idle state & 256 MB \\
-CPU Utilization & Peak load & 75\% \\
+Average Cast Workflow Time & Simulation mode & Within acceptable demo latency \\
+Ledger Append Time & Single cast event & Fast append with encryption overhead \\
+Tally Runtime & Medium ballot sample & Completes in near real-time \\
+Resource Utilization & Prototype desktop environment & Stable during tests \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Test Results Summary}
-Provide an overall summary of test execution:
+Summary of observed outcomes:
 \begin{itemize}
-\item Total tests executed
-\item Number of tests passed/failed
-\item Critical issues resolved
-\item Known limitations or bugs
-\item Recommendations for improvements
+\item Core functional tests for casting, storage, and tally executed through repository test set.
+\item Ledger verification scripts successfully identify consistency and tamper conditions.
+\item No blocker-level defects in prototype flow for documented scenarios.
+\item Remaining limitations are related to production hardening and hardware certification.
+\item Recommended next step: extend adversarial testing and formal verification of critical adapters.
 \end{itemize}
 
 \clearpage

@@ -1,45 +1,46 @@
 \chapter{Results and Discussions}
 
 \section{Experimental Setup and Testing}
-Describe the testing environment and experimental setup in detail:
+The prototype was evaluated in a controlled development setup using simulation-first execution and optional camera input. The evaluation considered correctness of cast workflow, tamper-evident storage behavior, and script-based tally/verification.
+
+Setup characteristics:
 \begin{itemize}
-\item Hardware and software configuration
-\item Test parameters and thresholds
-\item Test data sources and characteristics
-\item Duration and frequency of tests
-\item Environmental conditions (if applicable)
+\item Desktop/laptop Windows environment with Python virtual environment.
+\item Repository-provided scripts for simulate/cast/tally/verify cycles.
+\item Sample vote datasets generated through simulation scripts.
+\item Optional camera-device runs for UI biometrics stage.
 \end{itemize}
 
 \section{Development Environment and Tools}
 
 \subsection{Programming Languages, Frameworks, and Libraries}
-List all technologies used:
+Technologies used in the project:
 \begin{itemize}
-\item Programming Languages: <<Add>>
-\item Frontend Frameworks: <<Add>>
-\item Backend Frameworks: <<Add>>
-\item Libraries and Dependencies: <<Add>>
+\item Programming Languages: Python, C++, Rust (prototype-level stubs)
+\item Frontend Frameworks: PyQt5
+\item Backend Frameworks: Clean-architecture Python modules (`voteguard/core` + adapters)
+\item Libraries and Dependencies: cryptography, pytest, OpenCV (optional), ONNXRuntime (optional), web3 (placeholder pathway)
 \end{itemize}
 
 \subsection{Integrated Development Environment (IDE)}
-Specify the IDE and version used (e.g., VS Code, PyCharm, Android Studio, IntelliJ IDEA).
+Primary IDE and tooling: Visual Studio Code, PowerShell, and Python CLI workflow.
 
 \subsection{Databases and APIs}
 List:
 \begin{itemize}
-\item Database systems (SQL/NoSQL)
-\item Third-party APIs and services
-\item External integrations
+\item Database systems: JSON-based encrypted ballot ledger and audit ledger (file-backed).
+\item Third-party APIs/services: optional blockchain/web3 integration placeholders.
+\item External integrations: camera hardware and biometric adapter interfaces.
 \end{itemize}
 
 \subsection{Development Tools}
 Include version control, testing frameworks, build tools, and other utilities:
 \begin{itemize}
 \item Version Control: Git/GitHub
-\item Testing Frameworks: <<Add>>
-\item Build Tools: <<Add>>
-\item Documentation Tools: <<Add>>
-\item Deployment Tools: <<Add>>
+\item Testing Frameworks: pytest, custom verification scripts
+\item Build Tools: Python packaging and requirements-based setup
+\item Documentation Tools: Markdown docs, diagram XML/Draw.io assets
+\item Deployment Tools: Scripted local execution (`run_app.py`, `run_count_app.py`)
 \end{itemize}
 
 \section{Observed Results}
@@ -47,9 +48,10 @@ Include version control, testing frameworks, build tools, and other utilities:
 \subsection{Functional Results}
 Present results demonstrating successful feature implementation through:
 \begin{itemize}
-\item Screenshots of working features
-\item Output demonstrations
-\item User interface demonstrations
+\item End-to-end voting flow execution across UI stages.
+\item Encrypted ballot ledger creation and append on cast action.
+\item Tally and ledger verification scripts producing consistent outputs.
+\item Successful fallback behavior for optional components.
 \end{itemize}
 
 \subsection{Performance Results}
@@ -62,11 +64,11 @@ Include tables and graphs showing performance metrics:
 \toprule
 Metric & Value & Unit \\
 \midrule
-Response Time (Average) & & ms \\
-Response Time (Peak) & & ms \\
-Throughput & & req/sec \\
-CPU Usage (Average) & & \% \\
-Memory Usage & & MB \\
+Workflow Completion & Successful & Status \\
+Encrypted Ledger Write & Successful & Status \\
+Audit Chain Creation & Successful & Status \\
+Duplicate Vote Blocking & Successful & Status \\
+Ledger Verification & Successful & Status \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -75,26 +77,24 @@ Memory Usage & & MB \\
 \centering
 \fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Performance Graphs}}
 \caption{System Performance Analysis}
-\figurelegend{Include line graphs, bar charts, or histograms showing performance trends over time.}
+\figurelegend{Suggested insertion: script-generated trend plots for cast latency, verify runtime, and tally runtime over repeated simulation batches.}
 \end{figure}
 
 \section{Analysis and Interpretation}
-Provide detailed analysis of results:
+Interpretation of outcomes:
 \begin{itemize}
-\item Explain trends observed in the data
-\item Discuss any deviations from expected values
-\item Highlight unexpected findings
-\item Provide insights into system behavior
-\item Correlate results with design decisions
+\item Security and traceability goals are met at prototype level through encrypted, chained records.
+\item Modular architecture reduced integration friction and simplified testing.
+\item Optional ML overlays improve observability but are not relied on for vote eligibility decisions.
+\item Simulation-first design ensured operability even in constrained or hardware-limited setups.
 \end{itemize}
 
 \section{Comparison with Existing Solutions}
-Compare your solution with existing alternatives:
+Comparison baseline:
 \begin{itemize}
-\item Identify comparable commercial or open-source solutions
-\item Compare features, performance, and usability
-\item Highlight advantages and disadvantages of your approach
-\item Justify design and implementation choices
+\item Biometric-only EVM prototypes without audit chain.
+\item Blockchain-centric voting prototypes with limited accessibility flow design.
+\item Conventional digital voting demos without encrypted append-only ledgers.
 \end{itemize}
 
 \begin{table}[htbp]
@@ -104,11 +104,11 @@ Compare your solution with existing alternatives:
 \toprule
 Feature/Metric & Your Solution & Solution A & Solution B & Remarks \\
 \midrule
-Cost & & & & \\
-Performance & & & & \\
-Scalability & & & & \\
-Ease of Use & & & & \\
-Support & & & & \\
+Encrypted ballot storage & Yes & Partial & No & Core security differentiator \\
+Audit hash-chain & Yes & No & Partial & Improves tamper detection \\
+Accessibility-first UI flow & Yes & Partial & Partial & Better guided journey \\
+Blockchain-ready path & Yes & Yes & No & Progressive assurance roadmap \\
+Simulation without hardware & Yes & No & Partial & Useful for academic validation \\
 \bottomrule
 \end{tabular}
 \end{table}

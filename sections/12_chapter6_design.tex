@@ -1,38 +1,55 @@
 \chapter{Design}
 
 \section{Use Case Diagram}
-Present the complete use case diagram showing all actors and their interactions with the system. Include detailed use case descriptions with:
+Primary actors are Voter, Election Officer, and System Auditor. Key use cases include voter enrollment validation, biometric capture, cast vote, verify ledger integrity, and generate tally.
+
+Use case description summary:
 \begin{itemize}
-\item Actor name
-\item Preconditions
-\item Main flow of events
-\item Alternative flows
-\item Postconditions
+\item \textbf{Preconditions:} voting session initialized, candidate list available, device stack active or in simulation mode.
+\item \textbf{Main flow:} identifier entry $\rightarrow$ biometric capture $\rightarrow$ vote cast $\rightarrow$ encrypted storage.
+\item \textbf{Alternative flow:} hardware unavailable, fallback simulation with audit flags.
+\item \textbf{Postconditions:} vote recorded, cast-registry updated, audit event persisted.
 \end{itemize}
 
 \section{Class Diagram}
-Provide the class diagram showing all classes, their attributes, methods, relationships (inheritance, composition, aggregation), and visibility modifiers.
+The class model centers on clean architecture boundaries:
+\begin{itemize}
+\item Core domain and use cases (`domain.py`, `usecases.py`, `state_machine.py`).
+\item Port interfaces (`ports.py`) for storage, audit, chain anchoring, and devices.
+\item Adapter implementations (`storage_fernet_hashchain.py`, `audit_log_hashchain.py`, `devices_mock.py`, `chain_simulated.py`).
+\end{itemize}
 
 \section{Sequence Diagram}
-Include sequence diagrams for key workflows, showing interactions between objects and the order of messages exchanged.
+Critical sequence: Voter UI invokes CastVote use case, use case calls storage port to append encrypted record, then audit port logs event, followed by UI confirmation and transition to start state.
 
 \section{Activity Diagram}
-Present activity diagrams illustrating business processes or complex workflows with decision points, parallel activities, and synchronization.
+Activity flow includes decision gates for identifier validity, camera/device readiness, duplicate vote checks, and storage exception handling paths.
 
 \section{Entity-Relationship (ER) Diagram}
-Display the complete ER diagram showing all entities, attributes, primary keys, foreign keys, and relationships (one-to-one, one-to-many, many-to-many).
+The prototype uses file-ledger entities instead of relational tables:
+\begin{itemize}
+\item \textbf{BallotRecord:} sequence number, encrypted payload, previous hash, current hash, timestamp.
+\item \textbf{AuditRecord:} event type, metadata, previous hash, current hash, timestamp.
+\item \textbf{CastRegistry:} salted identifier hash, cast timestamp, session metadata.
+\end{itemize}
 
 \section{Component Diagram}
-Show the decomposition of the system into components, interfaces, and dependencies between them.
+Components are split into UI, Core Use Cases, Storage Adapter, Audit Adapter, Device Adapter, and Optional Chain Adapter. Dependencies are inward toward core interfaces only.
 
 \section{Deployment Diagram}
-For network or cloud-based projects, include deployment diagrams showing the physical arrangement of processors, devices, and software artifacts.
+Deployment is designed for polling-station edge execution:
+\begin{itemize}
+\item Windows/Edge compute unit running UI and core services.
+\item Camera and biometric peripherals connected locally.
+\item Local encrypted storage for ballots and audit logs.
+\item Optional network uplink for chain anchoring and centralized monitoring.
+\end{itemize}
 
 \begin{figure}[htbp]
 \centering
 \fbox{\parbox[c][6cm][c]{0.85\textwidth}{\centering UML Diagrams}}
 \caption{Design Diagrams (Use Case, Class, Sequence, Activity, ER)}
-\figurelegend{Include screenshots or diagrams from UML modeling tools (Enterprise Architect, Lucidchart, Draw.io, etc.)}
+\figurelegend{Insert project Draw.io/UML artifacts from repository files: user use-case XML/PNG, architecture XML, and workflow diagrams.}
 \end{figure}
 
 \clearpage
