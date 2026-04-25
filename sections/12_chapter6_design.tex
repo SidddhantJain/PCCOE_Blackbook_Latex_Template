@@ -11,6 +11,13 @@ Use case description summary:
 \item \textbf{Postconditions:} vote recorded, cast-registry updated, audit event persisted.
 \end{itemize}
 
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Use Case Diagram Placeholder}}
+\caption{Use Case Diagram for VoteGuard Pro}
+\figurelegend{Insert exported diagram from user use-case XML/PNG source and ensure all actors and major use cases are labeled.}
+\end{figure}
+
 \section{Class Diagram}
 The class model centers on clean architecture boundaries:
 \begin{itemize}
@@ -19,11 +26,32 @@ The class model centers on clean architecture boundaries:
 \item Adapter implementations (`storage_fernet_hashchain.py`, `audit_log_hashchain.py`, `devices_mock.py`, `chain_simulated.py`).
 \end{itemize}
 
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Class Diagram Placeholder}}
+\caption{Core and Adapter Class Diagram}
+\figurelegend{Show entities, ports, and adapter implementation relations.}
+\end{figure}
+
 \section{Sequence Diagram}
 Critical sequence: Voter UI invokes CastVote use case, use case calls storage port to append encrypted record, then audit port logs event, followed by UI confirmation and transition to start state.
 
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Sequence Diagram Placeholder}}
+\caption{Vote Casting Sequence Diagram}
+\figurelegend{Include message flow from UI to core use case, storage, audit, and confirmation components.}
+\end{figure}
+
 \section{Activity Diagram}
 Activity flow includes decision gates for identifier validity, camera/device readiness, duplicate vote checks, and storage exception handling paths.
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Activity Diagram Placeholder}}
+\caption{Voting Workflow Activity Diagram}
+\figurelegend{Show alternative and exception paths including fallback simulation route.}
+\end{figure}
 
 \section{Entity-Relationship (ER) Diagram}
 The prototype uses file-ledger entities instead of relational tables:
@@ -36,6 +64,13 @@ The prototype uses file-ledger entities instead of relational tables:
 \section{Component Diagram}
 Components are split into UI, Core Use Cases, Storage Adapter, Audit Adapter, Device Adapter, and Optional Chain Adapter. Dependencies are inward toward core interfaces only.
 
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Component Diagram Placeholder}}
+\caption{Component Diagram of VoteGuard Pro}
+\figurelegend{Show modular decomposition and dependency boundaries.}
+\end{figure}
+
 \section{Deployment Diagram}
 Deployment is designed for polling-station edge execution:
 \begin{itemize}
@@ -44,6 +79,13 @@ Deployment is designed for polling-station edge execution:
 \item Local encrypted storage for ballots and audit logs.
 \item Optional network uplink for chain anchoring and centralized monitoring.
 \end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Deployment Diagram Placeholder}}
+\caption{Deployment Diagram for Edge Polling Setup}
+\figurelegend{Represent EVM node, peripheral devices, local storage, and optional remote verification endpoint.}
+\end{figure}
 
 \begin{figure}[htbp]
 \centering

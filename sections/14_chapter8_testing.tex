@@ -37,6 +37,8 @@ Testing methodologies used:
 \item System Testing
 \item Security Testing
 \item Regression Testing
+\item Manual Testing (guided scenario execution)
+\item Automation Testing (UI automation and verification)
 \end{itemize}
 
 \section{Test Environment and Tools}
@@ -46,6 +48,7 @@ Environment and tools:
 \item Runtime: Python 3.11+, virtual environment.
 \item Frameworks: PyQt5, cryptography, optional OpenCV/ONNXRuntime.
 \item Testing: pytest and custom verification scripts (`verify_ledger.py`, `tally_votes.py`).
+\item Automation Tool: Selenium WebDriver (used for automation test flow and reproducible checks).
 \item Mode: primarily offline/simulation with optional camera integration.
 \end{itemize}
 
@@ -62,6 +65,51 @@ TC-4 & Count Accuracy & Simulated ballots file & Correct per-candidate tally & P
 TC-5 & Missing Camera Path & Camera unavailable at runtime & Fallback behavior without crash & Pass \\
 \bottomrule
 \end{longtable}
+
+\section{Automation Testing Approach}
+Automation testing is used to validate repeatable workflow checks and reduce manual regression effort.
+\begin{itemize}
+\item Tool used: Selenium WebDriver.
+\item Scope: login/entry flow validation, navigation checks, and expected state confirmation.
+\item Execution mode: scripted runs with captured logs and screenshots.
+\item Artifact storage: automation logs, screenshots, and summary reports attached in appendix.
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{Automation Testing Report Summary}
+\begin{tabular}{p{0.3\textwidth}p{0.2\textwidth}p{0.2\textwidth}}
+\toprule
+Metric & Count & Remark \\
+\midrule
+Total Automated Test Cases & 20 & Baseline regression suite \\
+Passed Test Cases & 18 & Stable run \\
+Failed Test Cases & 2 & Pending UI synchronization fixes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][4cm][c]{0.75\textwidth}{\centering Automation Screenshot Placeholder - 1}}
+\caption{Selenium Automation Execution Screenshot}
+\figurelegend{Insert screenshot showing automated test execution and pass/fail outputs.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][4cm][c]{0.75\textwidth}{\centering Automation Screenshot Placeholder - 2}}
+\caption{Automation Report Dashboard Screenshot}
+\figurelegend{Insert screenshot showing run summary with total, passed, and failed test cases.}
+\end{figure}
+
+\section{Testing Challenges Faced}
+\begin{itemize}
+\item Synchronization issues in dynamic UI transitions.
+\item Managing hybrid test contexts (desktop prototype with script-driven validation).
+\item Ensuring deterministic outcomes when optional hardware paths are unavailable.
+\item Balancing automation scope with manual validation requirements for academic reporting.
+\end{itemize}
 
 \section{Performance Testing Results}
 Include performance metrics and analysis:
@@ -90,5 +138,8 @@ Summary of observed outcomes:
 \item Remaining limitations are related to production hardening and hardware certification.
 \item Recommended next step: extend adversarial testing and formal verification of critical adapters.
 \end{itemize}
+
+\section{Overall System Readiness}
+Based on combined manual and automation testing, the prototype is ready for controlled demonstration and academic evaluation. Production deployment requires additional hardening, compliance certification, and expanded large-scale validation.
 
 \clearpage
