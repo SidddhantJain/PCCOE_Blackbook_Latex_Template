@@ -1,6 +1,6 @@
-# Black Book LaTeX Template
+# PCCOE B.Tech Project Report LaTeX Template
 
-This project is a complete LaTeX setup for your B.Tech IT project report, based on the sequence and formatting rules you provided.
+This project is a complete LaTeX setup for Pimpri Chinchwad College of Engineering (PCCOE) B.Tech IT project reports, based on official formatting guidelines and specifications.
 
 ## 1) Required Directory Layout
 
