@@ -19,7 +19,7 @@ The following information is already configured in the template:
 - **Page Numbering:** Starts from Contents page as page 1
 - **Front Matter Pages:** Unnumbered (as per guidelines)
 - **Chapters:** 10 complete chapters + References + Appendices
-- **Author & License:** Siddhant Mishrikotkar with usage restrictions
+- **License:** MIT License (applies to template repository structure only)
 
 ---
 
@@ -140,13 +140,13 @@ The PDF will be generated as `main.pdf` in the project root folder.
 ```
 d:\Siddhant\projects\Black book\
 ├── main.tex                              # Main document file
-├── README.md                             # This file
+├── README.md                             # Setup and build instructions
+├── LICENSE                               # MIT License (template repository)
 ├── .gitignore                            # Git ignore rules
 ├── CUSTOMIZATION_GUIDE.md               # Customization instructions
 ├── sections/
 │   ├── 00_cover_page.tex
 │   ├── 01_front_page.tex
-│   ├── 01a_license_author.tex           # License and author declaration
 │   ├── 02_institute_certificate.tex
 │   ├── 03_industry_certificate.tex
 │   ├── 04_acknowledgement.tex
@@ -173,7 +173,11 @@ d:\Siddhant\projects\Black book\
 
 ## Questions?
 
-For template modifications or queries regarding usage rights, contact the template author: Siddhant Mishrikotkar
+For questions about the template or to report issues, visit the GitHub repository:
+https://github.com/SidddhantJain/PCCOE_Blackbook_Latex_Template
+
+Template created by: Siddhant Mishrikotkar
+License: MIT (applies to template repository structure only)
 
 ---
 

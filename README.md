@@ -55,7 +55,15 @@ Place your institute logo at:
 
 If missing, LaTeX prints a boxed placeholder.
 
-## 6) Notes
+## 6) License
+
+This LaTeX template and repository structure are provided under the **MIT License**.
+
+The license covers the template framework, structure, and LaTeX code only. All project-specific content, academic work, research data, and figures added by users remain the intellectual property of the respective project authors and their institutions.
+
+See LICENSE file for full details.
+
+## 7) Template Notes
 
 - Page numbering starts from the Contents page as page 1.
 - Pages before Contents are intentionally unnumbered.
