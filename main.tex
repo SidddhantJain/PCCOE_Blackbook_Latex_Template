@@ -1,0 +1,138 @@
+\documentclass[12pt,a4paper,twoside]{report}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{newtxtext,newtxmath}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage[hidelinks]{hyperref}
+
+\onehalfspacing
+
+% -------------------------
+% Editable project metadata
+% -------------------------
+\newcommand{\ProjectTitle}{PROJECT TITLE}
+\newcommand{\StudentOne}{NAME OF STUDENT 1}
+\newcommand{\PRNOne}{PRN NO: 1}
+\newcommand{\StudentTwo}{NAME OF STUDENT 2}
+\newcommand{\PRNTwo}{PRN NO: 2}
+\newcommand{\GuideName}{GUIDE NAME}
+\newcommand{\CollegeName}{COLLEGE NAME}
+\newcommand{\CollegeAddress}{COLLEGE ADDRESS}
+\newcommand{\AcademicYear}{ACADEMIC YEAR 20XX-XX}
+
+% -------------------------
+% Heading style
+% -------------------------
+\titleformat{\chapter}[display]
+  {\bfseries\centering\fontsize{16}{18}\selectfont}
+  {\MakeUppercase{Chapter \thechapter}}
+  {1ex}
+  {\MakeUppercase}
+
+\titleformat{\section}
+  {\bfseries\fontsize{12}{14}\selectfont}
+  {\thesection}
+  {1em}
+  {}
+
+\titleformat{\subsection}
+  {\bfseries\fontsize{12}{14}\selectfont}
+  {\thesubsection}
+  {1em}
+  {}
+
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+\titlespacing*{\section}{0pt}{2\baselineskip}{\baselineskip}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0.5\baselineskip}
+
+% Figure and table caption styling
+\captionsetup[figure]{font={normalsize},labelfont=bf,labelsep=period}
+\captionsetup[table]{font={normalsize},labelfont=bf,labelsep=period}
+
+% Header and footer (active from contents onward)
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\fontsize{10}{12}\selectfont \MakeUppercase{\ProjectTitle}}
+\fancyfoot[C]{\fontsize{10}{12}\selectfont \CollegeName\ - INFORMATION TECHNOLOGY - \AcademicYear\ \ |\ Page \thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% A 10 pt legend helper for figures, if needed.
+\newcommand{\figurelegend}[1]{\par\vspace{2pt}{\fontsize{10}{12}\selectfont #1\par}}
+
+\begin{document}
+
+% Front matter before contents has no page numbering.
+\pagenumbering{gobble}
+\pagestyle{empty}
+
+\input{sections/00_cover_page}
+\input{sections/01_front_page}
+\input{sections/01a_license_author}
+\input{sections/02_institute_certificate}
+\input{sections/03_industry_certificate}
+\input{sections/04_acknowledgement}
+
+\clearpage
+\listoffigures
+
+\clearpage
+\listoftables
+
+\clearpage
+\input{sections/05_abbreviations}
+
+% Start printed page numbering from contents as page 1.
+\clearpage
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\tableofcontents
+
+\clearpage
+\input{sections/06_abstract}
+
+\clearpage
+\input{sections/07_chapter1_introduction}
+
+\clearpage
+\input{sections/08_chapter2_literature_review}
+
+\clearpage
+\input{sections/09_chapter3_requirements}
+
+\clearpage
+\input{sections/10_chapter4_sample}
+
+\clearpage
+\input{sections/11_chapter5_methodology}
+
+\clearpage
+\input{sections/12_chapter6_design}
+
+\clearpage
+\input{sections/13_chapter7_implementation}
+
+\clearpage
+\input{sections/14_chapter8_testing}
+
+\clearpage
+\input{sections/15_chapter9_results_discussions}
+
+\clearpage
+\input{sections/16_chapter10_conclusions}
+
+\clearpage
+\input{sections/17_references}
+
+\clearpage
+\input{sections/18_appendix}
+
+\end{document}
