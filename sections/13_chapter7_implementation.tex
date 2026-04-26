@@ -1,0 +1,70 @@
+\chapter{Implementation}
+
+\section{Module-wise Implementation}
+Provide a detailed breakdown of implementation for each module:
+\begin{itemize}
+\item Module name and its purpose
+\item Key functionalities implemented
+\item Data structures used
+\item External dependencies or libraries
+\item Implementation challenges and solutions
+\end{itemize}
+
+\section{Code Snippets and Explanation}
+Include important code snippets with explanations:
+\begin{itemize}
+\item Key algorithms with comments
+\item Critical functions or methods
+\item Initialization and configuration code
+\item Error handling mechanisms
+\end{itemize}
+
+Example code structure:
+\begin{verbatim}
+# Example: Authentication Module
+def authenticate_user(username, password):
+    """
+    Authenticates user credentials.
+    Args:
+        username: User's login identifier
+        password: User's login password
+    Returns:
+        Boolean indicating authentication success
+    """
+    # Validate input parameters
+    if not username or not password:
+        raise ValueError("Invalid credentials")
+    
+    # Database lookup and password verification
+    user = db.find_user(username)
+    if user and verify_password(password, user.hashed_pwd):
+        return True
+    return False
+\end{verbatim}
+
+\section{Database Implementation}
+
+\subsection{Schema and Structure}
+Describe the database schema, tables, and their relationships.
+
+\subsection{SQL Table Structures}
+Provide CREATE TABLE statements for all database tables with appropriate data types, constraints, and indexes.
+
+\subsection{ER Diagram Reference}
+Link to ER diagram showing complete database design.
+
+\begin{table}[htbp]
+\centering
+\caption{Database Tables Overview}
+\begin{tabular}{p{0.2\textwidth}p{0.3\textwidth}p{0.4\textwidth}}
+\toprule
+Table Name & Primary Key & Key Attributes \\
+\midrule
+users & user\_id & username, email, password\_hash \\
+projects & project\_id & name, description, created\_by \\
+tasks & task\_id & title, status, assigned\_to, deadline \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
