@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  
+  <!-- Key definitions for node and edge attributes -->
+  <key id="d0" for="node" attr.name="color" attr.type="string"/>
+  <key id="d1" for="node" attr.name="description" attr.type="string"/>
+  <key id="d2" for="edge" attr.name="label" attr.type="string"/>
+  
+  <graph id="G" edgedefault="directed">
+    
+    <!-- Layer 1: Presentation / User Interface -->
+    <node id="n1">
+      <data key="d0">#E8F4F8</data>
+      <data key="d1">Voter UI / Election Officer UI / REST API</data>
+      <!-- Label will be rendered by the calling application -->
+    </node>
+    
+    <!-- Layer 2: Core Application Logic -->
+    <node id="n2">
+      <data key="d0">#D4E8F7</data>
+      <data key="d1">Core Use Cases (Enroll, Biometric Capture, Cast Vote)</data>
+    </node>
+    
+    <!-- Layer 3: Data Storage - Ledger -->
+    <node id="n3">
+      <data key="d0">#C0D8E8</data>
+      <data key="d1">Encrypted Ballot Ledger (Cast Registry)</data>
+    </node>
+    
+    <!-- Layer 4: Audit Chain -->
+    <node id="n4">
+      <data key="d0">#B0C8E0</data>
+      <data key="d1">Audit Chain (Event Log with Hash Chain)</data>
+    </node>
+    
+    <!-- Layer 5: Optional Blockchain Anchor -->
+    <node id="n5">
+      <data key="d0">#A0B8D8</data>
+      <data key="d1">Optional Blockchain Anchor (Non-repudiation, Remote Verification)</data>
+    </node>
+    
+    <!-- Metadata / System Context -->
+    <node id="n6">
+      <data key="d0">#F5F5F5</data>
+      <data key="d1">Preconditions: voting session initialized; candidate list available; device stack active or simulation mode</data>
+    </node>
+    
+    <node id="n7">
+      <data key="d0">#F5F5F5</data>
+      <data key="d1">Main Flow: identifier entry → biometric capture → vote cast → encrypted storage</data>
+    </node>
+    
+    <node id="n8">
+      <data key="d0">#F5F5F5</data>
+      <data key="d1">Alternative Flow: hardware unavailable → fallback simulation with audit flags</data>
+    </node>
+    
+    <node id="n9">
+      <data key="d0">#F5F5F5</data>
+      <data key="d1">Postconditions: vote recorded; cast-registry updated; audit event persisted</data>
+    </node>
+    
+    <!-- Edges: Data flow and dependency relationships -->
+    <edge id="e1" source="n1" target="n2">
+      <data key="d2">invokes</data>
+    </edge>
+    
+    <edge id="e2" source="n2" target="n3">
+      <data key="d2">appends encrypted record</data>
+    </edge>
+    
+    <edge id="e3" source="n2" target="n4">
+      <data key="d2">logs event</data>
+    </edge>
+    
+    <edge id="e4" source="n3" target="n5">
+      <data key="d2">optional anchor</data>
+    </edge>
+    
+    <edge id="e5" source="n4" target="n5">
+      <data key="d2">optional anchor</data>
+    </edge>
+    
+    <!-- Context edges -->
+    <edge id="e6" source="n6" target="n2" style="dashed"/>
+    <edge id="e7" source="n7" target="n2" style="dashed"/>
+    <edge id="e8" source="n8" target="n2" style="dashed"/>
+    <edge id="e9" source="n9" target="n2" style="dashed"/>
+    
+  </graph>
+</graphml>
