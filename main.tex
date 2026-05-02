@@ -1,8 +1,16 @@
 \documentclass[12pt,a4paper,twoside]{report}
 
 \usepackage[a4paper,margin=1in]{geometry}
+\usepackage{iftex}
 \usepackage{setspace}
-\usepackage{newtxtext,newtxmath}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{newtxtext,newtxmath}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX}
+  \setmainfont{Times New Roman}
+\fi
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
@@ -72,6 +80,13 @@
 
 % A 10 pt legend helper for figures, if needed.
 \newcommand{\figurelegend}[1]{\par\vspace{2pt}{\fontsize{10}{12}\selectfont #1\par}}
+
+\newcommand{\TripleBorderBox}[1]{%
+\setlength{\fboxsep}{12pt}%
+\setlength{\fboxrule}{1pt}%
+\noindent\hspace*{-1.25in}\fbox{\fbox{\fbox{%
+\parbox{\dimexpr\paperwidth-6\fboxsep-6\fboxrule\relax}{#1}%
+}}}}
 
 \begin{document}
 

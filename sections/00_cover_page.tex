@@ -1,9 +1,7 @@
 \newgeometry{a4paper,left=1.25in,right=1.25in,top=1in,bottom=1in}
 \thispagestyle{empty}
 
-\setlength{\fboxsep}{12pt}
-\setlength{\fboxrule}{1pt}
-\noindent\hspace*{-1.25in}\fbox{\parbox{\dimexpr\paperwidth-2\fboxsep-2\fboxrule}{
+\TripleBorderBox{
 \begin{center}
 \vspace*{0.5\baselineskip}
 {\bfseries\fontsize{12}{14}\selectfont A PROJECT REPORT ON}\par
@@ -54,7 +52,7 @@
 \vspace{0.5\baselineskip}
 {\bfseries\fontsize{12}{14}\selectfont \MakeUppercase{\AcademicYear}}\par
 \end{center}
-}}
+}
 
 \clearpage
 \restoregeometry
