@@ -13,7 +13,7 @@
 
     \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{assets/figure_6_1_usecase}
+    \includegraphics[width=0.9\textwidth]{assets/usecase.png}
     \caption{Use Case Diagram for VoteGuard Pro}
     \figurelegend{Primary actors: Voter, Election Officer, System Auditor. Key use cases: voter enrollment validation, biometric capture, cast vote, verify ledger integrity, generate tally.}
     \end{figure}
@@ -29,7 +29,7 @@
     \begin{figure}[htbp]
     \centering
     {
-    \includegraphics{assets/usecase.png}}
+    \includegraphics[width=0.9\textwidth]{assets/class.png}}
     \caption{Core and Adapter Class Diagram}
     \figurelegend{Show entities, ports, and adapter implementation relations.}
     \end{figure}
@@ -39,7 +39,7 @@
 
     \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{assets/figure_6_3_sequence}
+    \includegraphics[width=0.9\textwidth]{assets/seq.png}
     \caption{Vote Casting Sequence Diagram}
     \figurelegend{Critical sequence: Voter UI invokes CastVote use case, use case calls storage port to append encrypted record, then audit port logs event, followed by UI confirmation and transition to start state.}
     \end{figure}
@@ -49,7 +49,7 @@
 
     \begin{figure}[htbp]
     \centering
-    \fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Activity Diagram Placeholder}}
+    \includegraphics[width=0.9\textwidth]{assets/workflow.png}
     \caption{Voting Workflow Activity Diagram}
     \figurelegend{Show alternative and exception paths including fallback simulation route.}
     \end{figure}
@@ -67,7 +67,7 @@
 
     \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{assets/figure_6_5_component}
+    \includegraphics[width=0.9\textwidth]{assets/component.png}
     \caption{Component Diagram of VoteGuard Pro}
     \figurelegend{Shows modular decomposition: Interface Layer, Application Layer (Use Cases), Domain Core, Ports (Interfaces), and Adapters/Infrastructure with clear dependency boundaries.}
     \end{figure}
@@ -83,7 +83,7 @@
 
     \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{assets/figure_6_6_deployment}
+    \includegraphics[width=0.9\textwidth]{assets/deploy.png}
     \caption{Deployment Diagram for Edge Polling Setup}
     \figurelegend{Represents EVM node with local storage, peripheral devices (biometric, tablet, printer), and optional remote verification endpoint with blockchain anchor service.}
     \end{figure}
