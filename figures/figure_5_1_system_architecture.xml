@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="label" for="node" attr.name="label" attr.type="string"/>
+  <graph id="G" edgedefault="directed">
+    <node id="UI"><data key="label">Voter UI / Election Officer UI / REST API</data></node>
+    <node id="UseCases"><data key="label">Core Use Cases\n(Enroll, Biometric Capture, Cast Vote)</data></node>
+    <node id="Ledger"><data key="label">Encrypted Ballot Ledger</data></node>
+    <node id="Audit"><data key="label">Audit Chain</data></node>
+    <node id="Chain"><data key="label">Optional Blockchain Anchor</data></node>
+
+    <!-- flows -->
+    <edge id="e1" source="UI" target="UseCases"/>
+    <edge id="e2" source="UseCases" target="Ledger"/>
+    <edge id="e3" source="UseCases" target="Audit"/>
+    <edge id="e4" source="Audit" target="Chain"/>
+    <edge id="e5" source="Ledger" target="Chain"/>
+
+    <!-- metadata nodes to clarify roles -->
+    <node id="Notes"><data key="label">Preconditions: voting session initialized; candidate list available; device stack active or simulation mode\nMain flow: identifier entry -> biometric capture -> vote cast -> encrypted storage\nAlt flow: hardware unavailable -> fallback simulation with audit flags\nPostconditions: vote recorded; cast-registry updated; audit event persisted</data></node>
+    <edge id="e6" source="Notes" target="UseCases"/>
+  </graph>
+</graphml>
