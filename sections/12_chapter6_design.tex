@@ -4,12 +4,7 @@
     Primary actors are Voter, Election Officer, and System Auditor. Key use cases include voter enrollment validation, biometric capture, cast vote, verify ledger integrity, and generate tally.
 
     Use case description summary:
-    \begin{itemize}
-    \item \textbf{Preconditions:} voting session initialized, candidate list available, device stack active or in simulation mode.
-    \item \textbf{Main flow:} identifier entry $\rightarrow$ biometric capture $\rightarrow$ vote cast $\rightarrow$ encrypted storage.
-    \item \textbf{Alternative flow:} hardware unavailable, fallback simulation with audit flags.
-    \item \textbf{Postconditions:} vote recorded, cast-registry updated, audit event persisted.
-    \end{itemize}
+    The voting session begins only after the candidate list is available and the device stack is active or running in simulation mode. The main flow moves from identifier entry to biometric capture, then to vote casting and encrypted storage. If the hardware is unavailable, the system falls back to simulation mode with audit flags so the workflow can continue. Once the cast is completed, the vote is recorded, the cast registry is updated, and the audit event is persisted.
 
     \begin{figure}[htbp]
     \centering
@@ -20,11 +15,7 @@
 
     \section{Class Diagram}
     The class model centers on clean architecture boundaries:
-    \begin{itemize}
-    \item Core domain and use cases (`domain.py`, `usecases.py`, `state_machine.py`).
-    \item Port interfaces (`ports.py`) for storage, audit, chain anchoring, and devices.
-    \item Adapter implementations (`storage_fernet_hashchain.py`, `audit_log_hashchain.py`, `devices_mock.py`, `chain_simulated.py`).
-    \end{itemize}
+    The core domain and use cases are implemented in domain.py, usecases.py, and state_machine.py. Port interfaces in ports.py define the contracts for storage, audit, chain anchoring, and devices, while adapter implementations such as storage_fernet_hashchain.py, audit_log_hashchain.py, devices_mock.py, and chain_simulated.py connect the core logic to the external environment.
 
     \begin{figure}[htbp]
     \centering
@@ -56,11 +47,7 @@
 
     \section{Entity-Relationship (ER) Diagram}
     The prototype uses file-ledger entities instead of relational tables:
-    \begin{itemize}
-    \item \textbf{BallotRecord:} sequence number, encrypted payload, previous hash, current hash, timestamp.
-    \item \textbf{AuditRecord:} event type, metadata, previous hash, current hash, timestamp.
-    \item \textbf{CastRegistry:} salted identifier hash, cast timestamp, session metadata.
-    \end{itemize}
+    The BallotRecord stores the sequence number, encrypted payload, previous hash, current hash, and timestamp. The AuditRecord stores the event type, metadata, previous hash, current hash, and timestamp. The CastRegistry stores the salted identifier hash, cast timestamp, and session metadata.
 
     \section{Component Diagram}
     Components are split into UI, Core Use Cases, Storage Adapter, Audit Adapter, Device Adapter, and Optional Chain Adapter. Dependencies are inward toward core interfaces only.
@@ -74,12 +61,7 @@
 
     \section{Deployment Diagram}
     Deployment is designed for polling-station edge execution:
-    \begin{itemize}
-    \item Windows/Edge compute unit running UI and core services.
-    \item Camera and biometric peripherals connected locally.
-    \item Local encrypted storage for ballots and audit logs.
-    \item Optional network uplink for chain anchoring and centralized monitoring.
-    \end{itemize}
+    The deployment model uses a Windows or edge compute unit running the UI and core services. Camera and biometric peripherals are connected locally, and ballots together with audit logs are stored in encrypted form on the same site. An optional network uplink remains available for chain anchoring and centralized monitoring.
 
     \begin{figure}[htbp]
     \centering

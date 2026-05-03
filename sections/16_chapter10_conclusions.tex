@@ -4,66 +4,31 @@
 VoteGuard Pro delivers a security-first, accessibility-aware electronic voting prototype that combines guided UI workflows, encrypted append-only ballot persistence, hash-chained audit logs, and blockchain-ready extension points. The solution addresses core electoral concerns of integrity, transparency, and operational usability in constrained environments.
 
 Major achievements include:
-\begin{itemize}
-\item End-to-end cast workflow implementation with deterministic transitions.
-\item Cryptographic ballot storage and audit-chain integrity checks.
-\item Duplicate vote prevention via cast-registry controls.
-\item Testable modular architecture suitable for iterative hardening.
-\end{itemize}
+The major achievements of the project are the end-to-end cast workflow implementation with deterministic transitions, cryptographic ballot storage with audit-chain integrity checks, duplicate vote prevention through cast-registry controls, and a testable modular architecture that supports iterative hardening.
 
 \section{Key Findings}
 Key findings from implementation and validation:
-\begin{itemize}
-\item Security and accessibility can be co-designed without sacrificing usability.
-\item Ledger verification significantly improves post-cast transparency.
-\item Adapter-based architecture accelerates testing and controlled substitution of components.
-\item Simulation-first approach is effective for academic prototyping and demonstration.
-\end{itemize}
+The implementation shows that security and accessibility can be co-designed without sacrificing usability. Ledger verification significantly improves post-cast transparency, adapter-based architecture accelerates testing and controlled substitution of components, and the simulation-first approach is effective for academic prototyping and demonstration.
 
 \section{Challenges Faced and Solutions}
 Challenges and resolutions:
-\begin{itemize}
-\item \textbf{Hardware variability:} resolved with mock adapters and simulation mode.
-\item \textbf{State transition complexity:} handled via deterministic state-machine design.
-\item \textbf{Auditability requirements:} implemented through parallel ballot and audit hash chains.
-\item \textbf{Scope constraints:} blockchain and FFI paths retained as progressive placeholders.
-\end{itemize}
+Hardware variability was handled with mock adapters and simulation mode, state transition complexity was managed through deterministic state-machine design, auditability requirements were implemented through parallel ballot and audit hash chains, and scope constraints were addressed by retaining blockchain and FFI paths as progressive placeholders.
 
 \section{Meeting Project Objectives}
 Verify that all objectives stated in Chapter 1 have been met:
-\begin{itemize}
-\item Objective 1 (secure cast and storage): \textbf{Met}
-\item Objective 2 (guided accessibility-aware flow): \textbf{Met}
-\item Objective 3 (auditability and integrity verification): \textbf{Met}
-\item Objective 4 (modular blockchain-ready path): \textbf{Partially Met} (prototype adapters complete; production anchoring pending)
-\end{itemize}
+Objective 1 on secure cast and storage has been met, Objective 2 on a guided accessibility-aware flow has been met, Objective 3 on auditability and integrity verification has been met, and Objective 4 on a modular blockchain-ready path has been partially met because the prototype adapters are complete but production anchoring is still pending.
 
 \section{Alignment with Sustainable Development Goals (SDGs)}
 Contribution against selected SDGs:
-\begin{itemize}
-\item \textbf{SDG 9:} innovation in secure civic digital infrastructure.
-\item \textbf{SDG 10:} inclusive and guided voting interactions for diverse user groups.
-\item \textbf{SDG 16:} improved transparency and trust in institutional processes.
-\end{itemize}
+The project contributes to SDG 9 through innovation in secure civic digital infrastructure, to SDG 10 through inclusive and guided voting interactions for diverse user groups, and to SDG 16 through improved transparency and trust in institutional processes.
 
 \section{Future Enhancements}
 Planned enhancements:
-\begin{itemize}
-\item Production-grade key management using HSM/secure vault.
-\item Permissioned blockchain anchoring with verifiable receipts.
-\item Formal verification of critical state transitions and storage invariants.
-\item Expanded accessibility modes (multilingual voice/tactile assistance).
-\item Hardened device attestation and signed-driver trust pipeline.
-\end{itemize}
+Planned enhancements include production-grade key management using an HSM or secure vault, permissioned blockchain anchoring with verifiable receipts, formal verification of critical state transitions and storage invariants, expanded accessibility modes such as multilingual voice and tactile assistance, and a hardened device attestation and signed-driver trust pipeline.
 
 \section{Recommendations}
 Recommendations:
-\begin{itemize}
-\item Use this prototype for controlled pilot studies, not direct production elections.
-\item Prioritize threat modeling, external audits, and compliance checks before deployment.
-\item Continue comparative evaluation against biometric-only and blockchain-only baselines.
-\item Maintain strict separation between analytics and eligibility decision logic.
-\end{itemize}
+The prototype should be used for controlled pilot studies rather than direct production elections. Before deployment, threat modeling, external audits, and compliance checks should be prioritized. The project should also continue comparative evaluation against biometric-only and blockchain-only baselines, and it should maintain strict separation between analytics and eligibility decision logic.
 
 \section{Final Remarks}
 VoteGuard Pro demonstrates that transparent, auditable, and inclusive digital voting workflows can be engineered with practical modularity. The project establishes a robust foundation for future research and production hardening toward trustworthy electoral technology.

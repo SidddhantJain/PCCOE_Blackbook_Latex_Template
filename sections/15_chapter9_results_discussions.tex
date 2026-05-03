@@ -4,55 +4,30 @@
 The prototype was evaluated in a controlled development setup using simulation-first execution and optional camera input. The evaluation considered correctness of cast workflow, tamper-evident storage behavior, and script-based tally/verification.
 
 Setup characteristics:
-\begin{itemize}
-\item Desktop/laptop Windows environment with Python virtual environment.
-\item Repository-provided scripts for simulate/cast/tally/verify cycles.
-\item Sample vote datasets generated through simulation scripts.
-\item Optional camera-device runs for UI biometrics stage.
-\end{itemize}
+The setup used a desktop or laptop Windows environment with a Python virtual environment, repository-provided scripts for simulate/cast/tally/verify cycles, sample vote datasets generated through simulation scripts, and optional camera-device runs for the biometric stage of the UI.
 
 \section{Development Environment and Tools}
 
 \subsection{Programming Languages, Frameworks, and Libraries}
 Technologies used in the project:
-\begin{itemize}
-\item Programming Languages: Python, C++, Rust (prototype-level stubs)
-\item Frontend Frameworks: PyQt5
-\item Backend Frameworks: Clean-architecture Python modules (`voteguard/core` + adapters)
-\item Libraries and Dependencies: cryptography, pytest, OpenCV (optional), ONNXRuntime (optional), web3 (placeholder pathway)
-\end{itemize}
+The project uses Python as the main implementation language, with C++ and Rust present only as prototype-level stubs. The interface is built with PyQt5, the backend follows clean-architecture Python modules in voteguard/core and the adapters layer, and the dependencies include cryptography, pytest, OpenCV for optional camera support, ONNXRuntime for optional analytics, and web3 as a placeholder pathway.
 
 \subsection{Integrated Development Environment (IDE)}
 Primary IDE and tooling: Visual Studio Code, PowerShell, and Python CLI workflow.
 
 \subsection{Databases and APIs}
 List:
-\begin{itemize}
-\item Database systems: JSON-based encrypted ballot ledger and audit ledger (file-backed).
-\item Third-party APIs/services: optional blockchain/web3 integration placeholders.
-\item External integrations: camera hardware and biometric adapter interfaces.
-\end{itemize}
+The project uses JSON-based encrypted ballot and audit ledgers that are file-backed rather than relational. Third-party APIs and services appear only as optional blockchain and web3 integration placeholders, while external integrations cover camera hardware and biometric adapter interfaces.
 
 \subsection{Development Tools}
 Include version control, testing frameworks, build tools, and other utilities:
-\begin{itemize}
-\item Version Control: Git/GitHub
-\item Testing Frameworks: pytest, custom verification scripts
-\item Build Tools: Python packaging and requirements-based setup
-\item Documentation Tools: Markdown docs, diagram XML/Draw.io assets
-\item Deployment Tools: Scripted local execution (`run_app.py`, `run_count_app.py`)
-\end{itemize}
+Version control is handled through Git and GitHub. Testing relies on pytest and custom verification scripts, build setup uses Python packaging and requirements-based installation, documentation is maintained through Markdown files and diagram XML or Draw.io assets, and deployment is performed using scripted local execution such as run_app.py and run_count_app.py.
 
 \section{Observed Results}
 
 \subsection{Functional Results}
 Present results demonstrating successful feature implementation through:
-\begin{itemize}
-\item End-to-end voting flow execution across UI stages.
-\item Encrypted ballot ledger creation and append on cast action.
-\item Tally and ledger verification scripts producing consistent outputs.
-\item Successful fallback behavior for optional components.
-\end{itemize}
+The system demonstrated end-to-end voting flow execution across the UI stages, encrypted ballot ledger creation and append behavior at cast time, consistent outputs from the tally and ledger verification scripts, and successful fallback behavior for optional components.
 
 \subsection{Performance Results}
 Include tables and graphs showing performance metrics:
@@ -82,20 +57,11 @@ Ledger Verification & Successful & Status \\
 
 \section{Analysis and Interpretation}
 Interpretation of outcomes:
-\begin{itemize}
-\item Security and traceability goals are met at prototype level through encrypted, chained records.
-\item Modular architecture reduced integration friction and simplified testing.
-\item Optional ML overlays improve observability but are not relied on for vote eligibility decisions.
-\item Simulation-first design ensured operability even in constrained or hardware-limited setups.
-\end{itemize}
+The results show that security and traceability goals are met at prototype level through encrypted and chained records. The modular architecture reduced integration friction and simplified testing, while optional ML overlays improved observability without being used for vote eligibility decisions. The simulation-first design also ensured operability in constrained or hardware-limited setups.
 
 \section{Comparison with Existing Solutions}
 Comparison baseline:
-\begin{itemize}
-\item Biometric-only EVM prototypes without audit chain.
-\item Blockchain-centric voting prototypes with limited accessibility flow design.
-\item Conventional digital voting demos without encrypted append-only ledgers.
-\end{itemize}
+The comparison baseline includes biometric-only EVM prototypes without audit chains, blockchain-centric voting prototypes with limited accessibility flow design, and conventional digital voting demos that do not use encrypted append-only ledgers.
 
 \begin{table}[htbp]
 \centering

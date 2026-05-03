@@ -7,30 +7,14 @@ The selected approach was chosen because it allows independent verification of c
 
 \section{System Architecture}
 The architecture follows clean-separation principles:
-\begin{itemize}
-\item \textbf{Core Layer:} domain models, ports, use cases, and state machine.
-\item \textbf{Adapter Layer:} encrypted storage adapter, audit log adapter, chain simulation, and device adapters.
-\item \textbf{UI Layer:} Aadhaar entry, biometric capture, and voting screen workflow.
-\item \textbf{Optional ML Layer:} overlays and anomaly hints for operator observability only.
-\end{itemize}
+The core layer contains the domain models, ports, use cases, and the state machine. The adapter layer provides the encrypted storage adapter, the audit log adapter, the chain simulation path, and the device adapters. The UI layer handles Aadhaar entry, biometric capture, and the voting screen workflow, while the optional ML layer is used only for overlays and anomaly hints that improve operator observability.
 
 Data flow:
-\begin{enumerate}
-\item Capture voter identifiers and initialize voting session.
-\item Perform biometric capture/face detection and continue guided flow.
-\item Accept candidate selection and confirmation.
-\item Encrypt ballot payload and append to hash-chained ledger.
-\item Record audit event and optionally prepare chain-anchoring metadata.
-\end{enumerate}
+The flow starts by capturing voter identifiers and initializing the voting session. It then performs biometric capture or face detection and continues the guided flow until the candidate selection is confirmed. After confirmation, the ballot payload is encrypted and appended to the hash-chained ledger, and the audit event is recorded while the optional chain-anchoring metadata is prepared.
 
 \section{Algorithm}
 Key algorithms and controls used:
-\begin{itemize}
-\item \textbf{Encrypted Append Algorithm:} encrypt vote payload via Fernet, append as next sequence element, and update chain hash.
-\item \textbf{Cast-Registry Guard:} create salted identifier hash and reject duplicate cast attempts.
-\item \textbf{Ledger Verification Algorithm:} traverse records, validate sequence continuity and previous-hash integrity.
-\item \textbf{UI State Progression:} deterministic screen transitions to prevent overlapping dialogs and race conditions.
-\end{itemize}
+The encrypted append algorithm encrypts the vote payload via Fernet, appends it as the next sequence element, and updates the chain hash. The cast-registry guard creates a salted identifier hash and rejects duplicate cast attempts. The ledger verification algorithm traverses the records to validate sequence continuity and previous-hash integrity. UI state progression remains deterministic so that screens advance without overlapping dialogs or race conditions.
 
 Representative pseudocode:
 \begin{verbatim}
@@ -55,14 +39,7 @@ else:
 
 The system is organized in six layered tiers following clean architecture principles:
 
-\begin{enumerate}
-\item \textbf{Presentation Layer} - Voter UI (tablet/kiosk), Election Officer Dashboard, System Auditor Console, REST API endpoints.
-\item \textbf{Application Layer} - Session Manager, Vote Casting Orchestrator, Enrollment Validator, Verification Engine, Tally Calculator.
-\item \textbf{Domain Layer} - Voter Entity, Ballot Entity, Cast Registry, Cryptography Service, State Machine.
-\item \textbf{Port Interfaces} - IStorage, IAudit, IChainAnchor, IDevice (dependency inversion via abstraction).
-\item \textbf{Adapter Layer} - StorageHashChainAdapter, AuditLogHashChainAdapter, ChainAnchorServiceAdapter, DeviceMockAdapter.
-\item \textbf{Infrastructure Layer} - Encrypted File Store, Audit Records, Biometric Scanner, Card Reader, Printer, Blockchain Service, Remote Verification.
-\end{enumerate}
+The presentation layer includes the Voter UI, Election Officer Dashboard, System Auditor Console, and REST API endpoints. The application layer contains the Session Manager, Vote Casting Orchestrator, Enrollment Validator, Verification Engine, and Tally Calculator. The domain layer holds the Voter Entity, Ballot Entity, Cast Registry, Cryptography Service, and State Machine. Dependency inversion is achieved through the IStorage, IAudit, IChainAnchor, and IDevice interfaces. The adapter layer is implemented through the StorageHashChainAdapter, AuditLogHashChainAdapter, ChainAnchorServiceAdapter, and DeviceMockAdapter, while the infrastructure layer includes the Encrypted File Store, Audit Records, Biometric Scanner, Card Reader, Printer, Blockchain Service, and Remote Verification.
 
 \begin{figure}[htbp]
 \centering

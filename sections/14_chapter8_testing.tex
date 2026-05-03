@@ -32,15 +32,7 @@ TC07 & Print voter receipt & Successful cast completion & Receipt printed with t
 \section{Functional Testing}
 Functional testing was conducted to validate the full voting behavior of the EVM. The test cases followed the same order that a voter would experience at the polling station. The system was checked to ensure that the session opened correctly, the voter could be verified, the ballot could be cast only once, and the vote was stored before the voter received a confirmation receipt.
 
-\begin{itemize}
-\item Voter session initialization behaved consistently at the polling station.
-\item Biometric and identity verification correctly approved legitimate voters.
-\item Ballot selection and confirmation worked without exposing the vote choice.
-\item The cast registry blocked repeated attempts from the same voter.
-\item Encrypted storage preserved ballot confidentiality after submission.
-\item The audit log recorded every major step in the voting lifecycle.
-\item Receipt printing completed only after successful vote commit.
-\end{itemize}
+The voter session initialization behaved consistently at the polling station. Biometric and identity verification correctly approved legitimate voters. Ballot selection and confirmation worked without exposing the vote choice. The cast registry blocked repeated attempts from the same voter. Encrypted storage preserved ballot confidentiality after submission. The audit log recorded every major step in the voting lifecycle, and receipt printing completed only after successful vote commit.
 
 \section{Performance Testing}
 Performance testing was conducted to evaluate how quickly the EVM responded during repeated voting cycles. The emphasis was on practical polling-station timing rather than on unrelated application throughput. The system was observed while authenticating voters, accepting ballots, updating the audit log, and preparing the next voting session.
@@ -137,41 +129,18 @@ Runtime Mode & Offline polling mode with optional network anchor verification \\
 \section{Test Results Summary}
 
 \textbf{Overall Test Coverage:}
-\begin{itemize}
-\item Total Test Cases Executed: 20+
-\item Test Cases Passed: 20
-\item Test Cases Failed: 0
-\item Overall Pass Rate: 100\%
-\end{itemize}
+The total number of test cases executed was 20+, all 20 passed, none failed, and the overall pass rate was 100\%.
 
 \textbf{Key Findings:}
-\begin{itemize}
-\item The EVM workflow handled voter identification, ballot casting, and commit operations correctly.
-\item Duplicate voting attempts were blocked by the cast registry.
-\item The audit trail remained intact and verifiable after each cast.
-\item The encrypted ledger preserved confidentiality while still allowing integrity checks.
-\item Receipt generation worked only after successful ballot commit.
-\item Optional anchor verification matched the stored commitment values.
-\end{itemize}
+The EVM workflow handled voter identification, ballot casting, and commit operations correctly. Duplicate voting attempts were blocked by the cast registry, the audit trail remained intact and verifiable after each cast, the encrypted ledger preserved confidentiality while still allowing integrity checks, receipt generation worked only after successful ballot commit, and optional anchor verification matched the stored commitment values.
 
 \section{Observations and Recommendations}
 
 \subsection{Successful Implementations}
-\begin{itemize}
-\item The voter flow remained simple and guided, which is important for an EVM environment.
-\item The system preserved separation between voter identity checks and ballot secrecy.
-\item Hash-chained logging provided a clear audit path for each action.
-\item Recovery after interruption did not corrupt the stored ballot records.
-\end{itemize}
+The voter flow remained simple and guided, which is important for an EVM environment. The system preserved separation between voter identity checks and ballot secrecy. Hash-chained logging provided a clear audit path for each action, and recovery after interruption did not corrupt the stored ballot records.
 
 \subsection{Areas for Future Enhancement}
-\begin{itemize}
-\item Extend the voter interface with multilingual prompts for broader accessibility.
-\item Add stronger offline recovery support for polling stations with unstable power.
-\item Expand biometric fallback handling for voters whose scans cannot be captured.
-\item Increase stress testing for peak election loads across many booths.
-\item Add more formal verification of the storage and audit adapters.
-\end{itemize}
+Future enhancement should extend the voter interface with multilingual prompts for broader accessibility, add stronger offline recovery support for polling stations with unstable power, expand biometric fallback handling for voters whose scans cannot be captured, increase stress testing for peak election loads across many booths, and add more formal verification of the storage and audit adapters.
 
 \section{Conclusion}
 

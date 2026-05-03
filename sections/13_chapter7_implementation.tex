@@ -2,14 +2,7 @@
 
 \section{Module-wise Implementation}
 Implementation is organized into independent modules:
-\begin{itemize}
-\item \textbf{UI Module (`voteguard/app.py`, `src/ui/*`):} voter flow screens, validation dialogs, and cast confirmation.
-\item \textbf{Core Module (`voteguard/core/*`):} domain entities, state machine, and use cases (cast, tally, verify).
-\item \textbf{Storage Module (`adapters/storage_fernet_hashchain.py`):} encrypted append-only ballot ledger with hash chaining.
-\item \textbf{Audit Module (`adapters/audit_log_hashchain.py`):} tamper-evident event trace.
-\item \textbf{Device Module (`adapters/devices_mock.py`, `src/hardware/*`):} hardware abstraction and simulation.
-\item \textbf{Blockchain Module (`adapters/chain_simulated.py`, `src/blockchain/*`):} chain-anchoring pathway and prototype integration hooks.
-\end{itemize}
+The UI module in voteguard/app.py and src/ui/* manages voter flow screens, validation dialogs, and cast confirmation. The core module in voteguard/core/* contains the domain entities, the state machine, and the use cases for casting, tallying, and verification. The storage module in adapters/storage_fernet_hashchain.py provides the encrypted append-only ballot ledger with hash chaining, while the audit module in adapters/audit_log_hashchain.py maintains the tamper-evident event trace. The device module in adapters/devices_mock.py and src/hardware/* handles hardware abstraction and simulation, and the blockchain module in adapters/chain_simulated.py and src/blockchain/* provides the chain-anchoring pathway and prototype integration hooks.
 
 \section{Code Snippets and Explanation}
 Representative implementation pattern:
@@ -33,10 +26,10 @@ def cast_vote(voter_hash, candidate_id):
 \section{Database Implementation}
 
 \subsection{Schema and Structure}
-A relational database is not mandatory for the prototype. Persistent state is maintained using structured JSON ledgers and registry files.
+A relational database is not mandatory for the prototype. Persistent state is maintained using structured JSON ledgers and registry files so that the EVM workflow remains lightweight and portable.
 
 \subsection{SQL Table Structures}
-SQL is not used as primary persistence in this build. Equivalent logical schemas are represented as ledger records and registry entries.
+SQL is not used as the primary persistence layer in this build. Equivalent logical schemas are represented as ledger records and registry entries.
 
 \subsection{ER Diagram Reference}
 ER-style mapping is provided in Chapter 6 using BallotRecord, AuditRecord, and CastRegistry entities.
