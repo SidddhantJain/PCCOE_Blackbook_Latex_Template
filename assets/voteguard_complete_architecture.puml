@@ -1,0 +1,137 @@
+@startuml voteguard_architecture
+!theme plain
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam ArrowColor #333333
+skinparam borderColor #666666
+skinparam componentBackgroundColor #E8F4F8
+skinparam componentBorderColor #0066CC
+
+title VOTEGUARD PRO: Complete System Architecture
+
+package "Presentation Layer (UI)" #F5F5F5 {
+  component "Voter UI\n(Tablet/Kiosk)" as VoterUI
+  component "Election Officer\nDashboard" as EODash
+  component "System Auditor\nConsole" as AuditorUI
+  component "REST API\nEndpoints" as API
+}
+
+package "Application Layer (Use Cases)" #E8F4F8 {
+  component "Session Manager\n(state_machine.py)" as Session
+  component "Vote Casting\nOrchestrator" as VoteCast
+  component "Enrollment\nValidator" as Enroll
+  component "Verification\nEngine" as Verify
+  component "Tally\nCalculator" as Tally
+}
+
+package "Domain Layer (Core Logic)" #D4E8F7 {
+  component "Voter\nEntity" as VoterEntity
+  component "Ballot\nEntity" as BallotEntity
+  component "Cast\nRegistry" as CastRegistry
+  component "Cryptography\nService" as Crypto
+  component "State\nMachine" as StateMachine
+}
+
+package "Port Interfaces (Abstract)" #C0D8E8 {
+  interface IStorage as StoragePort
+  interface IAudit as AuditPort
+  interface IChainAnchor as ChainPort
+  interface IDevice as DevicePort
+}
+
+package "Adapter Layer (Implementations)" #B0C8E0 {
+  component "Encrypted Blob\nStorage\n(storage_hashchain.py)" as StorageAdapter
+  component "Audit Log\nHashChain\n(auditlog_hashchain.py)" as AuditAdapter
+  component "Chain Anchor\nService\n(chain_anchor_service.py)" as ChainAdapter
+  component "Device Mock\nAdapter\n(devices_mock.py)" as DeviceAdapter
+}
+
+package "Infrastructure Layer (External)" #A0B8D8 {
+  database "Encrypted\nFile Store" as FileStore
+  database "Audit\nRecords" as AuditStore
+  component "Biometric\nScanner" as BioScanner
+  component "Card\nReader" as CardReader
+  component "Printer /\nReceipt" as Printer
+  cloud "Blockchain /\nAnchor Service" as Blockchain
+  database "Remote\nVerification" as RemoteVerif
+}
+
+' Presentation to Application flows
+VoterUI --> VoteCast : submitVote()
+VoterUI --> Enroll : enrollVoter()
+EODash --> Verify : verifyLedger()
+EODash --> Tally : generateTally()
+AuditorUI --> Verify : queryAudit()
+API --> VoteCast : HTTP POST
+
+' Application to Domain flows
+VoteCast --> BallotEntity : create ballot
+VoteCast --> CastRegistry : check duplicate
+VoteCast --> Crypto : encrypt payload
+VoteCast --> StateMachine : transition state
+Enroll --> VoterEntity : validate voter
+Enroll --> CastRegistry : record enrollment
+Verify --> CastRegistry : traverse records
+Verify --> Crypto : verify integrity
+Tally --> BallotEntity : aggregate results
+
+' Domain to Ports
+CastRegistry -..|> StoragePort : implements
+Crypto -..|> StoragePort : uses
+BallotEntity -..|> AuditPort : triggers audit
+StateMachine -..|> ChainPort : optional anchor
+
+' Application to Ports
+VoteCast ..> StoragePort : append encrypted
+VoteCast ..> AuditPort : log event
+VoteCast ..> ChainPort : anchor (optional)
+Enroll ..> DevicePort : capture biometric
+VoteCast ..> DevicePort : biometric verify
+
+' Ports to Adapters
+StoragePort <|-- StorageAdapter : implements
+AuditPort <|-- AuditAdapter : implements
+ChainPort <|-- ChainAdapter : implements
+DevicePort <|-- DeviceAdapter : implements
+
+' Adapters to Infrastructure
+StorageAdapter --> FileStore : encrypt & store
+StorageAdapter --> ChainAdapter : chaining
+AuditAdapter --> AuditStore : append event
+AuditAdapter --> ChainAdapter : audit anchor
+ChainAdapter --> Blockchain : send anchor
+ChainAdapter --> RemoteVerif : verification
+DeviceAdapter --> BioScanner : biometric IO
+DeviceAdapter --> CardReader : card IO
+DeviceAdapter --> Printer : receipt print
+
+' System configuration notes
+note bottom of VoterUI
+  **Preconditions:**
+  - Voting session initialized
+  - Candidate list available
+  - Device stack active or simulation mode
+  
+  **Main Flow:**
+  identifier entry → biometric capture → vote cast → encrypted storage
+  
+  **Alternative Flow:**
+  hardware unavailable → fallback simulation with audit flags
+  
+  **Postconditions:**
+  - Vote recorded
+  - Cast-registry updated
+  - Audit event persisted
+end note
+
+legend right
+  | Color | Layer |
+  | #F5F5F5 | Presentation (UI) |
+  | #E8F4F8 | Application (Use Cases) |
+  | #D4E8F7 | Domain (Core Logic) |
+  | #C0D8E8 | Ports (Interfaces) |
+  | #B0C8E0 | Adapters (Implementations) |
+  | #A0B8D8 | Infrastructure (External) |
+endlegend
+
+@enduml

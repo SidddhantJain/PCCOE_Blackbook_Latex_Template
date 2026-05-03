@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  
+  <!-- Key definitions -->
+  <key id="layer" for="node" attr.name="layer" attr.type="string"/>
+  <key id="description" for="node" attr.name="description" attr.type="string"/>
+  <key id="edgeType" for="edge" attr.name="type" attr.type="string"/>
+  
+  <graph id="VoteGuardArchitecture" edgedefault="directed">
+    
+    <!-- ===== PRESENTATION LAYER ===== -->
+    <node id="n_voter_ui">
+      <data key="layer">Presentation</data>
+      <data key="description">Voter UI (Tablet/Kiosk) - identifier entry, biometric capture, voting interface</data>
+    </node>
+    <node id="n_eo_dashboard">
+      <data key="layer">Presentation</data>
+      <data key="description">Election Officer Dashboard - session control, monitoring, tally export</data>
+    </node>
+    <node id="n_auditor_console">
+      <data key="layer">Presentation</data>
+      <data key="description">System Auditor Console - ledger verification, audit query, integrity checks</data>
+    </node>
+    <node id="n_rest_api">
+      <data key="layer">Presentation</data>
+      <data key="description">REST API Endpoints - HTTP/JSON interfaces for remote clients</data>
+    </node>
+    
+    <!-- ===== APPLICATION LAYER ===== -->
+    <node id="n_session_mgr">
+      <data key="layer">Application</data>
+      <data key="description">Session Manager (state_machine.py) - voting session state transitions</data>
+    </node>
+    <node id="n_vote_cast">
+      <data key="layer">Application</data>
+      <data key="description">Vote Casting Orchestrator - coordinate biometric, encryption, storage</data>
+    </node>
+    <node id="n_enroll">
+      <data key="layer">Application</data>
+      <data key="description">Enrollment Validator - voter eligibility, identity verification</data>
+    </node>
+    <node id="n_verify">
+      <data key="layer">Application</data>
+      <data key="description">Verification Engine - ledger integrity verification, audit trails</data>
+    </node>
+    <node id="n_tally">
+      <data key="layer">Application</data>
+      <data key="description">Tally Calculator - aggregate votes, generate results</data>
+    </node>
+    
+    <!-- ===== DOMAIN LAYER ===== -->
+    <node id="n_voter_entity">
+      <data key="layer">Domain</data>
+      <data key="description">Voter Entity - voter ID, identity hash, session metadata</data>
+    </node>
+    <node id="n_ballot_entity">
+      <data key="layer">Domain</data>
+      <data key="description">Ballot Entity - candidate selection, timestamp, encryption envelope</data>
+    </node>
+    <node id="n_cast_registry">
+      <data key="layer">Domain</data>
+      <data key="description">Cast Registry - salted voter hash, duplicate prevention, cast ledger</data>
+    </node>
+    <node id="n_crypto">
+      <data key="layer">Domain</data>
+      <data key="description">Cryptography Service - Fernet encryption, hash verification, key management</data>
+    </node>
+    <node id="n_state_machine">
+      <data key="layer">Domain</data>
+      <data key="description">State Machine - deterministic state transitions, event handling</data>
+    </node>
+    
+    <!-- ===== PORTS (INTERFACES) ===== -->
+    <node id="n_storage_port">
+      <data key="layer">Ports</data>
+      <data key="description">IStorage Port - abstract storage interface for encrypted records</data>
+    </node>
+    <node id="n_audit_port">
+      <data key="layer">Ports</data>
+      <data key="description">IAudit Port - abstract audit logging interface</data>
+    </node>
+    <node id="n_chain_port">
+      <data key="layer">Ports</data>
+      <data key="description">IChainAnchor Port - abstract blockchain anchor interface</data>
+    </node>
+    <node id="n_device_port">
+      <data key="layer">Ports</data>
+      <data key="description">IDevice Port - abstract hardware device interface (biometric, card)</data>
+    </node>
+    
+    <!-- ===== ADAPTER LAYER ===== -->
+    <node id="n_storage_adapter">
+      <data key="layer">Adapters</data>
+      <data key="description">StorageHashChainAdapter (storage_hashchain.py) - encrypted blob storage + hash chaining</data>
+    </node>
+    <node id="n_audit_adapter">
+      <data key="layer">Adapters</data>
+      <data key="description">AuditLogHashChainAdapter (auditlog_hashchain.py) - audit log with hash chain</data>
+    </node>
+    <node id="n_chain_adapter">
+      <data key="layer">Adapters</data>
+      <data key="description">ChainAnchorServiceAdapter (chain_anchor_service.py) - blockchain integration</data>
+    </node>
+    <node id="n_device_adapter">
+      <data key="layer">Adapters</data>
+      <data key="description">DeviceMockAdapter (devices_mock.py) - device simulation/hardware abstraction</data>
+    </node>
+    
+    <!-- ===== INFRASTRUCTURE LAYER ===== -->
+    <node id="n_file_store">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Encrypted File Store - ballot ledger persistence</data>
+    </node>
+    <node id="n_audit_store">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Audit Records - event log storage</data>
+    </node>
+    <node id="n_bio_scanner">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Biometric Scanner - fingerprint / facial capture hardware</data>
+    </node>
+    <node id="n_card_reader">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Card Reader - voter ID card reading hardware</data>
+    </node>
+    <node id="n_printer">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Printer / Receipt - voter confirmation receipt</data>
+    </node>
+    <node id="n_blockchain">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Blockchain / Anchor Service - remote non-repudiation, optional</data>
+    </node>
+    <node id="n_remote_verif">
+      <data key="layer">Infrastructure</data>
+      <data key="description">Remote Verification Service - centralized audit endpoint, optional</data>
+    </node>
+    
+    <!-- ===== EDGES: Presentation to Application ===== -->
+    <edge id="e_voter_ui_to_vote_cast" source="n_voter_ui" target="n_vote_cast">
+      <data key="edgeType">invoke</data>
+    </edge>
+    <edge id="e_voter_ui_to_enroll" source="n_voter_ui" target="n_enroll">
+      <data key="edgeType">invoke</data>
+    </edge>
+    <edge id="e_eo_dash_to_verify" source="n_eo_dashboard" target="n_verify">
+      <data key="edgeType">invoke</data>
+    </edge>
+    <edge id="e_eo_dash_to_tally" source="n_eo_dashboard" target="n_tally">
+      <data key="edgeType">invoke</data>
+    </edge>
+    <edge id="e_auditor_ui_to_verify" source="n_auditor_console" target="n_verify">
+      <data key="edgeType">invoke</data>
+    </edge>
+    <edge id="e_api_to_vote_cast" source="n_rest_api" target="n_vote_cast">
+      <data key="edgeType">invoke</data>
+    </edge>
+    
+    <!-- ===== EDGES: Application to Domain ===== -->
+    <edge id="e_vote_cast_to_ballot" source="n_vote_cast" target="n_ballot_entity">
+      <data key="edgeType">creates</data>
+    </edge>
+    <edge id="e_vote_cast_to_registry" source="n_vote_cast" target="n_cast_registry">
+      <data key="edgeType">checks</data>
+    </edge>
+    <edge id="e_vote_cast_to_crypto" source="n_vote_cast" target="n_crypto">
+      <data key="edgeType">uses</data>
+    </edge>
+    <edge id="e_vote_cast_to_state" source="n_vote_cast" target="n_state_machine">
+      <data key="edgeType">transitions</data>
+    </edge>
+    <edge id="e_enroll_to_voter" source="n_enroll" target="n_voter_entity">
+      <data key="edgeType">validates</data>
+    </edge>
+    <edge id="e_verify_to_registry" source="n_verify" target="n_cast_registry">
+      <data key="edgeType">queries</data>
+    </edge>
+    <edge id="e_verify_to_crypto" source="n_verify" target="n_crypto">
+      <data key="edgeType">verifies</data>
+    </edge>
+    <edge id="e_tally_to_ballot" source="n_tally" target="n_ballot_entity">
+      <data key="edgeType">aggregates</data>
+    </edge>
+    <edge id="e_session_to_state" source="n_session_mgr" target="n_state_machine">
+      <data key="edgeType">manages</data>
+    </edge>
+    
+    <!-- ===== EDGES: Application to Ports ===== -->
+    <edge id="e_vote_cast_to_storage_port" source="n_vote_cast" target="n_storage_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    <edge id="e_vote_cast_to_audit_port" source="n_vote_cast" target="n_audit_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    <edge id="e_vote_cast_to_chain_port" source="n_vote_cast" target="n_chain_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    <edge id="e_vote_cast_to_device_port" source="n_vote_cast" target="n_device_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    <edge id="e_enroll_to_device_port" source="n_enroll" target="n_device_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    <edge id="e_verify_to_storage_port" source="n_verify" target="n_storage_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    <edge id="e_verify_to_audit_port" source="n_verify" target="n_audit_port">
+      <data key="edgeType">uses_port</data>
+    </edge>
+    
+    <!-- ===== EDGES: Ports to Adapters ===== -->
+    <edge id="e_storage_port_to_adapter" source="n_storage_port" target="n_storage_adapter">
+      <data key="edgeType">implements</data>
+    </edge>
+    <edge id="e_audit_port_to_adapter" source="n_audit_port" target="n_audit_adapter">
+      <data key="edgeType">implements</data>
+    </edge>
+    <edge id="e_chain_port_to_adapter" source="n_chain_port" target="n_chain_adapter">
+      <data key="edgeType">implements</data>
+    </edge>
+    <edge id="e_device_port_to_adapter" source="n_device_port" target="n_device_adapter">
+      <data key="edgeType">implements</data>
+    </edge>
+    
+    <!-- ===== EDGES: Adapters to Infrastructure ===== -->
+    <edge id="e_storage_adapter_to_filestore" source="n_storage_adapter" target="n_file_store">
+      <data key="edgeType">writes</data>
+    </edge>
+    <edge id="e_storage_adapter_to_chain" source="n_storage_adapter" target="n_chain_adapter">
+      <data key="edgeType">chains</data>
+    </edge>
+    <edge id="e_audit_adapter_to_auditstore" source="n_audit_adapter" target="n_audit_store">
+      <data key="edgeType">appends</data>
+    </edge>
+    <edge id="e_audit_adapter_to_chain" source="n_audit_adapter" target="n_chain_adapter">
+      <data key="edgeType">anchors</data>
+    </edge>
+    <edge id="e_chain_adapter_to_blockchain" source="n_chain_adapter" target="n_blockchain">
+      <data key="edgeType">sends</data>
+    </edge>
+    <edge id="e_chain_adapter_to_remote_verif" source="n_chain_adapter" target="n_remote_verif">
+      <data key="edgeType">notifies</data>
+    </edge>
+    <edge id="e_device_adapter_to_biometric" source="n_device_adapter" target="n_bio_scanner">
+      <data key="edgeType">io</data>
+    </edge>
+    <edge id="e_device_adapter_to_card" source="n_device_adapter" target="n_card_reader">
+      <data key="edgeType">io</data>
+    </edge>
+    <edge id="e_device_adapter_to_printer" source="n_device_adapter" target="n_printer">
+      <data key="edgeType">io</data>
+    </edge>
+    
+  </graph>
+</graphml>
