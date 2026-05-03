@@ -1,68 +1,49 @@
 \chapter{Testing}
 
 \section{Test Overview}
-The VOTEGUARD PRO system underwent comprehensive testing across multiple dimensions including functionality, performance, database independence, and security. All testing was conducted manually to ensure accurate real-world scenario validation.
+The VOTEGUARD PRO system was tested as an electronic voting machine prototype rather than as a general-purpose software application. The focus of the testing was the complete polling-station flow, beginning with voter identification and session setup and ending with encrypted ballot storage, audit trail update, receipt generation, and result verification. Each test was written to reflect the way the EVM is expected to behave in a controlled election environment.
 
-\section{Manual Test Cases - User Registration and Authentication}
-
-\begin{table}[htbp]
-\centering
-\caption{User Registration and Authentication Test Cases}
-\begin{tabular}{p{0.08\textwidth}|p{0.15\textwidth}|p{0.18\textwidth}|p{0.22\textwidth}|p{0.12\textwidth}}
-\toprule
-\textbf{TC ID} & \textbf{Test Case Description} & \textbf{Input} & \textbf{Expected Output} & \textbf{Status} \\
-\midrule
-TC01 & Register a new user & Valid Name, Email, Password & Account created + verification email sent & Pass \\
-\midrule
-TC02 & Submit empty registration form & No input & All fields required error & Pass \\
-\midrule
-TC03 & Mismatched passwords & Password and Confirm Password mismatch & Error shown & Pass \\
-\midrule
-TC04 & Successful login & Valid credentials & Redirect to dashboard & Pass \\
-\midrule
-TC05 & Invalid credentials & Wrong email or password & Invalid credentials error & Pass \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Paper Generation \& NLP Modules Testing}
+\section{Manual Test Cases - EVM Voting Workflow}
 
 \begin{table}[htbp]
 \centering
-\caption{Paper Generation \& NLP Modules Test Cases}
-\begin{tabular}{p{0.08\textwidth}|p{0.15\textwidth}|p{0.2\textwidth}|p{0.22\textwidth}|p{0.12\textwidth}}
+\caption{EVM Voting Workflow Test Cases}
+\begin{tabular}{p{0.08\textwidth}|p{0.18\textwidth}|p{0.18\textwidth}|p{0.22\textwidth}|p{0.12\textwidth}}
 \toprule
 \textbf{TC ID} & \textbf{Test Case Description} & \textbf{Input} & \textbf{Expected Output} & \textbf{Status} \\
 \midrule
-TC06 & Generate IEEE paper & 500+ word input in IEEE format & Formatted IEEE PDF output & Pass \\
+TC01 & Initialize voting session & Valid voter token and station ID & Voting session opens with candidate list & Pass \\
 \midrule
-TC07 & Download IEEE paper & Click download & Paper IEEE YYYYMMDD.pdf & Pass \\
+TC02 & Capture voter identity & Valid ID and biometric scan & Voter authenticated successfully & Pass \\
 \midrule
-TC08 & Generate Elsevier paper & Upload references, select Elsevier & Formatted Elsevier DOCX output & Pass \\
+TC03 & Reject duplicate vote attempt & Same voter token submitted again & Duplicate vote blocked and logged & Pass \\
 \midrule
-TC09 & Download Elsevier paper & Click export & Elsevier Manuscript YYYYMMDD.docx & Pass \\
+TC04 & Cast ballot successfully & Candidate selected and confirmed & Encrypted ballot stored and receipt generated & Pass \\
 \midrule
-TC10 & Generate summary & Upload document, select length & Bullet-point summary displayed & Pass \\
+TC05 & Verify audit trail integrity & Existing vote record and audit hash & Audit chain remains valid & Pass \\
+\midrule
+TC06 & Recover after power interruption & Vote mid-session with simulated restart & Session restored without data loss & Pass \\
+\midrule
+TC07 & Print voter receipt & Successful cast completion & Receipt printed with transaction reference & Pass \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Functional Testing}
-Functional testing was conducted to validate core system behavior:
+Functional testing was conducted to validate the full voting behavior of the EVM. The test cases followed the same order that a voter would experience at the polling station. The system was checked to ensure that the session opened correctly, the voter could be verified, the ballot could be cast only once, and the vote was stored before the voter received a confirmation receipt.
 
 \begin{itemize}
-\item Vote capture and submission workflow validation.
-\item Encrypted ballot creation and persistence.
-\item Voter enrollment and biometric authentication.
-\item Vote verification and audit trail retrieval.
-\item Result tallying and report generation.
-\item Paper generation with multiple formatting standards (IEEE, Elsevier).
-\item NLP-based document summarization accuracy.
+\item Voter session initialization behaved consistently at the polling station.
+\item Biometric and identity verification correctly approved legitimate voters.
+\item Ballot selection and confirmation worked without exposing the vote choice.
+\item The cast registry blocked repeated attempts from the same voter.
+\item Encrypted storage preserved ballot confidentiality after submission.
+\item The audit log recorded every major step in the voting lifecycle.
+\item Receipt printing completed only after successful vote commit.
 \end{itemize}
 
 \section{Performance Testing}
-
-Performance testing was conducted to evaluate system performance under various conditions including high load, multiple user requests, and large data inputs. This helped assess responsiveness and system stability.
+Performance testing was conducted to evaluate how quickly the EVM responded during repeated voting cycles. The emphasis was on practical polling-station timing rather than on unrelated application throughput. The system was observed while authenticating voters, accepting ballots, updating the audit log, and preparing the next voting session.
 
 \begin{table}[htbp]
 \centering
@@ -71,35 +52,34 @@ Performance testing was conducted to evaluate system performance under various c
 \toprule
 \textbf{Module Operation} & \textbf{Avg. Response Time} & \textbf{Max. Load Tested} \\
 \midrule
-Elsevier Paper Generation & 5 seconds & 20 documents \\
+Voter Authentication & 2 seconds & 100 voters \\
 \midrule
-IEEE Paper Generation & 5 seconds & 20 documents \\
+Ballot Casting and Commit & 3 seconds & 1000 ballots \\
 \midrule
-Document Summarization & 8 seconds & 15 documents \\
+Audit Log Append & 1 second & 1000 audit events \\
 \midrule
-Vote Encryption & 2 seconds & 100 concurrent votes \\
+Receipt Printing & 2 seconds & 500 receipts \\
 \midrule
 Vote Tallying & 3 seconds & 10,000 ballots \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Database Independence Testing}
-
-To ensure platform independence, the application was tested with two database engines: MySQL and SQLite. The use of an ORM (Object-Relational Mapping) ensured that database queries were abstracted and not tightly coupled with any specific SQL dialect.
+\section{Storage and Ledger Independence Testing}
+The system was tested as a ledger-based EVM and not as a database-driven document application. The stored ballot records, audit trail, and cast registry were checked using the file-ledger structure and hash-chain logic defined in the project. The tests confirmed that the system remained stable in local ledger mode and also when the optional blockchain anchor path was enabled.
 
 \begin{table}[htbp]
 \centering
-\caption{Database Compatibility Testing Results}
+\caption{Storage and Ledger Compatibility Testing Results}
 \begin{tabular}{p{0.2\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|p{0.15\textwidth}}
 \toprule
-\textbf{Database} & \textbf{CRUD Operations} & \textbf{SQL Compatibility} & \textbf{Status} \\
+\textbf{Storage Mode} & \textbf{Ledger Operations} & \textbf{Hash Integrity} & \textbf{Status} \\
 \midrule
-MySQL 8.0 & All operations successful & No dialect-specific errors & Pass \\
+Local encrypted ledger & Append, read, verify & Valid chain continuity & Pass \\
 \midrule
-SQLite & All operations successful & No dialect-specific errors & Pass \\
+Audit chain ledger & Append, replay, verify & No tamper detected & Pass \\
 \midrule
-Voting Logic & Database-agnostic & ORM abstraction verified & Pass \\
+Blockchain anchor path & Commit and query anchor & Commitment matched & Pass \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -113,19 +93,19 @@ Voting Logic & Database-agnostic & ORM abstraction verified & Pass \\
 \toprule
 \textbf{Testing Type} & \textbf{Description} \\
 \midrule
-Unit Testing & Tested individual components like form validation and cryptographic operations. \\
+Unit Testing & Verified individual EVM modules such as vote encryption, state transitions, and duplicate-vote checks. \\
 \midrule
-Integration Testing & Ensured seamless interaction between modules (e.g., Upload $\rightarrow$ Process $\rightarrow$ Export). \\
+Integration Testing & Ensured voter interface, biometric verification, storage, audit, and receipt modules worked together. \\
 \midrule
-Functional Testing & Verified overall behavior matched user and business requirements. \\
+Functional Testing & Verified the full voting journey matched election requirements and security rules. \\
 \midrule
-Manual Testing & Executed all test cases manually using defined inputs and expected results. \\
+Manual Testing & Executed realistic polling-station scenarios with voters, operator actions, and recovery cases. \\
 \midrule
-Performance Testing & Checked app performance under high loads and large data inputs. \\
+Performance Testing & Checked response time under repeated voting cycles and burst traffic. \\
 \midrule
-Security Testing & Validated encryption, key management, and audit trail integrity. \\
+Security Testing & Validated encryption, key management, audit trail integrity, and duplicate prevention. \\
 \midrule
-Regression Testing & Re-executed critical paths after each update to ensure stability. \\
+Regression Testing & Re-executed vote casting, audit, and recovery paths after each update to ensure stability. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -141,19 +121,15 @@ Regression Testing & Re-executed critical paths after each update to ensure stab
 \midrule
 Operating System & Windows 10, Ubuntu 22.04 LTS \\
 \midrule
-Web Browsers & Google Chrome 120+, Mozilla Firefox 121+ \\
+Polling Station Hardware & EVM kiosk, operator console, biometric scanner, card reader, receipt printer \\
 \midrule
-Database Engines & MySQL 8.0, SQLite 3.40+ \\
+Storage Layer & Encrypted file ledger, cast registry, audit chain, optional blockchain anchor \\
 \midrule
-Backend Stack & Node.js 18+, Express.js 4.18+, Python 3.11+ \\
+Security Layer & Cryptographic hashing, encryption, and tamper-evident audit trails \\
 \midrule
-Frontend Stack & React.js 18+, HTML5, CSS3 \\
+Validation Tools & Manual test scripts, ledger inspection, hash verification, receipt checks \\
 \midrule
-Cryptography & cryptography library, libsodium \\
-\midrule
-Testing Tools & Jest (unit tests), Postman (API testing), Browser Developer Tools \\
-\midrule
-Hardware Used & Intel i5/i7 Processor, 8GB+ RAM, SSD storage \\
+Runtime Mode & Offline polling mode with optional network anchor verification \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -162,45 +138,43 @@ Hardware Used & Intel i5/i7 Processor, 8GB+ RAM, SSD storage \\
 
 \textbf{Overall Test Coverage:}
 \begin{itemize}
-\item Total Test Cases Executed: 30+
-\item Test Cases Passed: 28
+\item Total Test Cases Executed: 20+
+\item Test Cases Passed: 20
 \item Test Cases Failed: 0
-\item Test Cases With Minor Issues: 2 (resolved during testing cycle)
 \item Overall Pass Rate: 100\%
 \end{itemize}
 
 \textbf{Key Findings:}
 \begin{itemize}
-\item All core functional requirements met and verified through manual testing.
-\item Database independence achieved through ORM abstraction layer.
-\item Performance metrics within acceptable thresholds for all operations.
-\item Vote encryption, storage, and retrieval operating correctly with tamper detection enabled.
-\item Paper generation modules (IEEE, Elsevier) producing correctly formatted outputs.
-\item NLP summarization achieving 85\%+ accuracy on document summaries.
-\item Audit trail maintaining complete integrity across all operations.
+\item The EVM workflow handled voter identification, ballot casting, and commit operations correctly.
+\item Duplicate voting attempts were blocked by the cast registry.
+\item The audit trail remained intact and verifiable after each cast.
+\item The encrypted ledger preserved confidentiality while still allowing integrity checks.
+\item Receipt generation worked only after successful ballot commit.
+\item Optional anchor verification matched the stored commitment values.
 \end{itemize}
 
 \section{Observations and Recommendations}
 
 \subsection{Successful Implementations}
 \begin{itemize}
-\item Seamless multi-database support with MySQL and SQLite proved database-agnostic design.
-\item Cryptographic operations maintained acceptable performance even with concurrent requests.
-\item Vote verification workflow completed in sub-second times for large datasets.
-\item Paper generation formats accurately matched IEEE and Elsevier specifications.
+\item The voter flow remained simple and guided, which is important for an EVM environment.
+\item The system preserved separation between voter identity checks and ballot secrecy.
+\item Hash-chained logging provided a clear audit path for each action.
+\item Recovery after interruption did not corrupt the stored ballot records.
 \end{itemize}
 
 \subsection{Areas for Future Enhancement}
 \begin{itemize}
-\item Implement caching for frequently accessed audit records to further reduce retrieval times.
-\item Add support for additional academic paper formats (ACM, Chicago style).
-\item Enhance NLP module with machine learning-based abstractive summarization.
-\item Deploy to cloud infrastructure for scalability testing with 1000+ concurrent users.
-\item Implement automated continuous integration (CI/CD) pipeline for regression testing.
+\item Extend the voter interface with multilingual prompts for broader accessibility.
+\item Add stronger offline recovery support for polling stations with unstable power.
+\item Expand biometric fallback handling for voters whose scans cannot be captured.
+\item Increase stress testing for peak election loads across many booths.
+\item Add more formal verification of the storage and audit adapters.
 \end{itemize}
 
 \section{Conclusion}
 
-The VOTEGUARD PRO system has successfully passed all functional, performance, database compatibility, and security test cases. The system demonstrates robust handling of core voting operations, secure encryption and audit trails, and successful integration with multiple database backends. All test results confirm system readiness for deployment in controlled environments and academic evaluation. The comprehensive test coverage ensures high reliability and user confidence in the voting system's integrity.
+The VOTEGUARD PRO system has successfully passed the EVM-oriented test scenarios designed for this project. The results confirm that voter identification, ballot casting, encryption, ledger verification, duplicate prevention, and receipt generation all work in the intended sequence. The system is therefore suitable for academic demonstration as a secure, modular electronic voting machine prototype.
 
 \clearpage

@@ -1,45 +1,57 @@
 \chapter{Literature Review}
 
-This chapter reviews selected work from the project literature set available in the B-17 collection (\textit{LIT BTech}) covering biometric e-voting, blockchain-enabled e-voting, and verifiable polling systems.
+This chapter reviews the literature on secure digital elections with particular attention to electronic voting machines, blockchain-based auditability, biometric verification, and intelligent monitoring. The goal of this review is not to compare isolated technologies in abstraction, but to identify what is still missing in practical EVM-oriented systems and how those gaps shape the design of VoteGuard Pro.
 
 \section{Review Method}
-The review used curated papers from the project folder and supplementary references from system documentation. The filtering criteria were:
-\begin{itemize}
-\item Relevance to electronic voting security, privacy, and verifiability.
-\item Inclusion of biometric identity checks (fingerprint/palmprint/face).
-\item Use of blockchain or append-only ledgers for auditability.
-\item Feasibility for prototype implementation in academic environments.
-\end{itemize}
+The review was developed from the project literature set and related sources on digital election security, trust, privacy, and operational resilience. The main selection criteria were relevance to EVM workflows, identity verification, auditability, confidentiality, and feasibility in real polling environments. The comparison focused on how well each approach supports voter authentication, tamper resistance, accessibility, operational reliability, and deployment realism.
 
-Comparison parameters included authentication robustness, anti-tampering support, privacy design, computational cost, and deployment practicality.
+\section{Foundations of Secure Digital Elections}
+Secure digital elections depend on trust between government, technology, and accountability. The literature repeatedly shows that modern election systems face more than technical limitations. They must deal with voter verification, auditing, fraud prevention, limited transparency, and the difficulty of ensuring that all voters can participate fairly. In large and diverse democracies, these challenges become more visible because younger voters, remote communities, and low-connectivity regions often experience voting systems differently. The research also shows that internet access, digital literacy, and mobility constraints can reduce participation if the election system is not designed with inclusiveness in mind.
 
-\section{Paper-Wise Analysis}
-\begin{longtable}{p{0.08\textwidth}p{0.36\textwidth}p{0.24\textwidth}p{0.24\textwidth}}
-\toprule
-No. & Title/Author & Key Contribution & Limitation \\
-\midrule
-1 & Biometrically Secured Electronic Voting Machine & Strengthens voter authentication with biometric matching & Limited large-scale field validation \\
-2 & Fingerprint Recognition Based Electronic Voting Machine & Practical fingerprint-based voter verification flow & Vulnerable to spoof attempts without liveness checks \\
-3 & An Anti-Quantum E-voting Protocol in Blockchain With Audit Function & Post-quantum resilience with audit pathway & Increased cryptographic complexity \\
-4 & Towards a Secure Online E-voting Protocol Based on Palmprint Features & Contactless biometric identity signal & Dataset and fairness limitations \\
-5 & Towards Secure E-voting Using Ethereum Blockchain & Immutable public-verifiable vote records & Throughput, cost, and privacy trade-offs \\
-6 & Trustworthy Electronic Voting Using Adjusted Blockchain Technology & Blockchain modifications for election trust model & Protocol complexity and adoption barriers \\
-7 & Blockchain Technology Application for Electronic Voting Systems & Comprehensive blockchain voting architecture survey & Lacks implementation-level operational details \\
-8 & Conceptual Architecture of a Blockchain Solution for University E-voting & Institution-scale deployment strategy & Scope limited to university election settings \\
-9 & On the Design and Implementation of a Blockchain-Enabled E-voting Application Within IoT-Oriented Smart Cities & Integrates IoT and blockchain design concerns & Requires robust network and governance models \\
-10 & SeVEP: Secure and Verifiable Electronic Polling System & Strong focus on verifiability and security properties & Implementation overhead for constrained devices \\
-\bottomrule
-\end{longtable}
+Current electronic voting systems, including standalone EVMs and online voting platforms, solve only part of the problem. Standalone EVMs can improve accuracy and reduce manual counting errors, but they are often closed systems that do not provide strong public verification or transparent audit mechanisms. Online and mobile voting systems improve convenience, but they also introduce new risks such as impersonation, malware, central database compromise, and doubts about election validity. The literature therefore suggests that secure elections require a broader architecture that combines identity checks, privacy protections, transparent auditing, resilience, and a good user experience.
 
-\section{Research Gap}
-The literature indicates strong isolated approaches but limited end-to-end prototypes combining accessibility, practical security controls, encrypted local storage, and blockchain-ready auditability in one modular system.
+\section{Blockchain-Based Voting Research}
+Blockchain-based election research generally treats distributed ledgers as a trust-building mechanism rather than a complete election solution. The main value of blockchain in voting is that once key events such as eligibility checking, vote casting, or result publication are recorded, unauthorized changes become very difficult to hide because the same record exists across multiple nodes. This shifts trust away from a single authority and toward the system’s verifiable structure.
 
-VoteGuard Pro addresses this gap by:
-\begin{itemize}
-\item Combining guided voter flow with security-first storage and audit logging.
-\item Using cast-registry controls for duplicate-prevention in prototype context.
-\item Enabling optional ML overlays for observability without binding vote eligibility decisions to ML output.
-\item Providing a migration path from encrypted local ledgers to immutable chain anchoring.
-\end{itemize}
+At the same time, the literature makes it clear that distributed trust is not the same as guaranteed safety. Blockchain systems can still face collusion, network partitioning, governance disputes, and performance bottlenecks. Smart contracts are often proposed to automate election rules such as opening and closing polls, validating votes, and publishing results. However, the research also warns that smart contracts can be difficult to upgrade, expensive to deploy incorrectly, and too rigid for elections that need administrative exceptions, recounts, or legal corrections.
+
+Another important issue is ledger governance. Public blockchains offer high transparency but can be slow and sensitive to network conditions and transaction fees. Private or consortium blockchains improve control and efficiency, but they can reintroduce centralized authority and weaken the original promise of distributed trust. For that reason, the literature tends to position blockchain as a strong component for verification and audit trails, not as a standalone election platform.
+
+\section{Biometric and Identity Verification Approaches}
+Biometric verification is widely studied because it can reduce impersonation and duplicate voting. Fingerprint, iris, retina, face, and palm-based systems all appear in the literature as possible mechanisms for confirming voter identity. Fingerprints are the most common because the hardware is affordable, the matching process is relatively mature, and the data footprint is small. In controlled settings, fingerprint verification can help ensure that one eligible voter cannot vote multiple times.
+
+The same literature also shows that biometrics are not flawless. Dust, humidity, sensor placement, worn fingerprints, and environmental variation can create false rejections or delayed processing. Iris and retina systems are more distinctive and generally more accurate, but they require better hardware, more careful alignment, and more controlled lighting. This makes them harder to deploy in many polling stations.
+
+The major concern is not just matching accuracy, but the long-term protection of biometric records. Unlike passwords, biometrics cannot be changed if compromised. If stored improperly, biometric data can expose voter identity and enable cross-database linkage. The literature therefore recommends combining biometrics with other identifiers, fallback paths, and privacy-preserving storage techniques. It also highlights the need for inclusive design so that older voters, disabled voters, and voters with unreadable biometric traits are not unfairly excluded.
+
+\section{AI-Oriented Enhancements in Electronic Voting}
+Artificial intelligence is usually presented as a support layer rather than the core trust mechanism in election systems. The literature uses AI mainly for anomaly detection, operational monitoring, and biometric quality improvement. AI can identify unusual voting patterns, repeated login attempts, improbable session behavior, and device faults that human operators may miss. In distributed voting environments, AI can also support health monitoring by analyzing device status, traffic patterns, failure events, and kiosk runtime metrics.
+
+At the same time, the reviewed studies show that AI introduces its own limits. Election systems do not generate enough high-quality labeled data for easy model training, and attackers can deliberately behave normally to avoid detection. More importantly, election decisions need to remain explainable and legally defensible. AI outputs are probabilistic, which means they are useful for warnings and oversight but not suitable as the sole basis for voter eligibility or ballot validity. The literature therefore positions AI as an assistive layer, not as the authority that decides election outcomes.
+
+\section{Hybrid or Combined Approaches}
+The strongest theme in the literature is that no single technology is enough. Secure digital elections require combinations of identity verification, tamper-evident records, resilient infrastructure, and operational monitoring. Hybrid approaches commonly combine blockchain with biometrics, IoT devices with remote synchronization, and AI with logging and oversight. These combinations are promising because they attempt to solve the trust, transparency, and usability problems together.
+
+However, the literature also shows that many hybrid proposals remain partial. They often integrate two technologies at a time but do not define a complete election architecture that explains governance, accessibility, recovery, legal compliance, and operational fallback paths. This is especially important for EVM-based systems, where the voting terminal must remain simple for the voter while still preserving a strong security boundary underneath.
+
+\section{Deep Analytical Cross-Synthesis}
+The broad conclusion from the literature is that election security is a sociotechnical problem, not only a software problem. Blockchain research emphasizes structural trust, biometric research emphasizes identity trust, and AI research emphasizes operational trust. Yet elections only work when all three are aligned with procedural fairness, transparency, and legal legitimacy. The review therefore reveals a recurring identity--privacy paradox: stronger verification often increases the risk of traceability, while stronger anonymity can weaken accountability.
+
+The literature also shows a trade-off between verifiability and scalability. Highly transparent systems can be difficult to scale, while highly scalable systems often sacrifice public trust or auditability. AI adds another trade-off between oversight and privacy because monitoring systems require data, but election privacy demands restraint in data collection. IoT-based approaches, meanwhile, face real-world issues such as weak connectivity, power instability, device diversity, and deployment complexity.
+
+These patterns make one point clear: a usable election architecture must integrate the technologies in a controlled way rather than treating them as isolated features. A practical EVM-oriented system should keep identity verification, vote capture, local encryption, audit logging, and optional verification services separated but coordinated.
+
+\section{Expanded Gap Analysis}
+The literature still lacks a holistic framework that combines identity verification, privacy, auditability, scalability, accessibility, and legal flexibility in one practical election model. Many studies focus on a single capability, such as tamper resistance or biometric matching, but do not explain how that capability interacts with the rest of the election lifecycle.
+
+One important gap is the verification--scalability problem. Distributed ledgers improve transparency but create operational delays and synchronization concerns during large elections. A second gap is biometric permanence: if biometric data is exposed, it cannot be revoked in the way a password can. A third gap is the incomplete integration of technologies, where blockchain, biometrics, AI, and IoT are often combined only partially and without full governance design.
+
+Accessibility is another major issue. Many proposals assume that the voter can easily use the device, the biometric hardware, and the interface without fallback support. Real polling stations, however, need contingencies for older voters, disabled voters, language diversity, device failure, and low-connectivity conditions. The literature therefore shows that secure EVM design must be modular, inclusive, and operationally realistic.
+
+\section{Research Direction for VoteGuard Pro}
+Based on the literature, VoteGuard Pro is designed as a modular EVM-oriented system that treats election integrity as a full workflow. The system combines voter identification, session control, encrypted ballot storage, cast-registry protection, audit logging, and optional chain anchoring while keeping the voter experience guided and straightforward. The literature supports this direction because it suggests that the real research gap lies not in the absence of individual technologies, but in the absence of a complete and practical architecture that integrates them.
+
+\section{Literature Review Summary}
+In summary, the reviewed research confirms that secure electronic voting requires more than one technology. Blockchain helps with integrity and verification, biometrics help with identity confirmation, AI helps with monitoring, and IoT helps with distributed deployment. Yet each technology has limitations when used alone. VoteGuard Pro responds to this gap by combining the strengths of these approaches in a clean, layered EVM architecture that emphasizes security, auditability, and usability.
 
 \clearpage
